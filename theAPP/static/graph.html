@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 750px;
+            background-color: #222222;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "lightblue", "font": {"color": "white"}, "id": "Introduction to Human Anatomy", "label": "Introduction to Human Anatomy", "shape": "dot", "size": 50, "title": "Introduction to Human Anatomy"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "Human Anatomy Overview", "label": "Human Anatomy Overview", "shape": "box", "size": 30, "title": "Human Anatomy Overview"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "Human Anatomy Overview_subtopics", "label": "Human Anatomy Overview_subtopics", "shape": "box", "size": 10, "title": "Scientific study of body structures Essential for understanding organs and systems Organized into levels from cells to complete organism"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "Levels of Organization", "label": "Levels of Organization", "shape": "box", "size": 30, "title": "Levels of Organization"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "Levels of Organization_subtopics", "label": "Levels of Organization_subtopics", "shape": "box", "size": 10, "title": "Cells Tissues Organs Organ systems Complete organism"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "Anatomical Terminology", "label": "Anatomical Terminology", "shape": "box", "size": 30, "title": "Anatomical Terminology"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "Anatomical Terminology_subtopics", "label": "Anatomical Terminology_subtopics", "shape": "box", "size": 10, "title": "Directional terms (anterior, posterior) Planes (sagittal, coronal, transverse) Regions (abdominal, thoracic) Cavities (cranial, spinal)"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Skeletal System", "label": "The Skeletal System", "shape": "box", "size": 30, "title": "The Skeletal System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Skeletal System_subtopics", "label": "The Skeletal System_subtopics", "shape": "box", "size": 10, "title": "Support, protection, movement Bones, joints, cartilages Axial skeleton vs. appendicular skeleton Bone tissue: compact bone, spongy bone"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Muscular System", "label": "The Muscular System", "shape": "box", "size": 30, "title": "The Muscular System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Muscular System_subtopics", "label": "The Muscular System_subtopics", "shape": "box", "size": 10, "title": "Movement, posture, heat production Skeletal, cardiac, smooth muscle types Major muscle groups Muscle contraction: sliding filament theory"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Nervous System", "label": "The Nervous System", "shape": "box", "size": 30, "title": "The Nervous System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Nervous System_subtopics", "label": "The Nervous System_subtopics", "shape": "box", "size": 10, "title": "Control system, response to stimuli Central vs. peripheral nervous system Neurons, brain, spinal cord Peripheral nerves: sensory and motor pathways"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Cardiovascular System", "label": "The Cardiovascular System", "shape": "box", "size": 30, "title": "The Cardiovascular System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Cardiovascular System_subtopics", "label": "The Cardiovascular System_subtopics", "shape": "box", "size": 10, "title": "Blood circulation, oxygen transport Heart, blood vessels, blood components"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Respiratory System", "label": "The Respiratory System", "shape": "box", "size": 30, "title": "The Respiratory System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Respiratory System_subtopics", "label": "The Respiratory System_subtopics", "shape": "box", "size": 10, "title": "Gas exchange, blood pH regulation Major organs: nose to lungs Breathing mechanism, gas exchange in alveoli"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Digestive System", "label": "The Digestive System", "shape": "box", "size": 30, "title": "The Digestive System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Digestive System_subtopics", "label": "The Digestive System_subtopics", "shape": "box", "size": 10, "title": "Food processing, nutrient absorption, waste elimination Major organs: mouth to gallbladder Digestive processes: mechanical and chemical digestion"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Urinary System", "label": "The Urinary System", "shape": "box", "size": 30, "title": "The Urinary System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Urinary System_subtopics", "label": "The Urinary System_subtopics", "shape": "box", "size": 10, "title": "Waste removal, fluid balance, electrolyte regulation Major organs: kidneys to urethra Kidney function: blood filtration, substance reabsorption, waste secretion"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Endocrine System", "label": "The Endocrine System", "shape": "box", "size": 30, "title": "The Endocrine System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Endocrine System_subtopics", "label": "The Endocrine System_subtopics", "shape": "box", "size": 10, "title": "Hormone production, body function regulation Major glands: pituitary to gonads Hormones\u0027 role in regulating body processes"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Lymphatic System and Immunity", "label": "The Lymphatic System and Immunity", "shape": "box", "size": 30, "title": "The Lymphatic System and Immunity"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Lymphatic System and Immunity_subtopics", "label": "The Lymphatic System and Immunity_subtopics", "shape": "box", "size": 10, "title": "Fluid balance support, immunity functions Components: lymph, lymphatic system organs Immune response mechanisms"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Reproductive Systems", "label": "The Reproductive Systems", "shape": "box", "size": 30, "title": "The Reproductive Systems"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Reproductive Systems_subtopics", "label": "The Reproductive Systems_subtopics", "shape": "box", "size": 10, "title": "Offspring production, genetic continuity Male reproductive system components Female reproductive system components"}, {"color": "lightgreen", "font": {"color": "white"}, "id": "The Integumentary System", "label": "The Integumentary System", "shape": "box", "size": 30, "title": "The Integumentary System"}, {"color": "lightgreen", "font": {"color": "white"}, "hidden": true, "id": "The Integumentary System_subtopics", "label": "The Integumentary System_subtopics", "shape": "box", "size": 10, "title": "Protection, temperature regulation, sensation Components: skin, hair, nails, glands"}]);
+        edges = new vis.DataSet([{"from": "Introduction to Human Anatomy", "to": "Human Anatomy Overview", "width": 2}, {"from": "Human Anatomy Overview", "hidden": true, "to": "Human Anatomy Overview_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "Levels of Organization", "width": 2}, {"from": "Levels of Organization", "hidden": true, "to": "Levels of Organization_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "Anatomical Terminology", "width": 2}, {"from": "Anatomical Terminology", "hidden": true, "to": "Anatomical Terminology_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Skeletal System", "width": 2}, {"from": "The Skeletal System", "hidden": true, "to": "The Skeletal System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Muscular System", "width": 2}, {"from": "The Muscular System", "hidden": true, "to": "The Muscular System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Nervous System", "width": 2}, {"from": "The Nervous System", "hidden": true, "to": "The Nervous System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Cardiovascular System", "width": 2}, {"from": "The Cardiovascular System", "hidden": true, "to": "The Cardiovascular System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Respiratory System", "width": 2}, {"from": "The Respiratory System", "hidden": true, "to": "The Respiratory System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Digestive System", "width": 2}, {"from": "The Digestive System", "hidden": true, "to": "The Digestive System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Urinary System", "width": 2}, {"from": "The Urinary System", "hidden": true, "to": "The Urinary System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Endocrine System", "width": 2}, {"from": "The Endocrine System", "hidden": true, "to": "The Endocrine System_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Lymphatic System and Immunity", "width": 2}, {"from": "The Lymphatic System and Immunity", "hidden": true, "to": "The Lymphatic System and Immunity_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Reproductive Systems", "width": 2}, {"from": "The Reproductive Systems", "hidden": true, "to": "The Reproductive Systems_subtopics", "width": 2}, {"from": "Introduction to Human Anatomy", "to": "The Integumentary System", "width": 2}, {"from": "The Integumentary System", "hidden": true, "to": "The Integumentary System_subtopics", "width": 2}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

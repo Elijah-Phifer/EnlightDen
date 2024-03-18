@@ -1,0 +1,17 @@
+{
+  "title": "Main Topic",
+  "main_topics": [
+    {
+      "name": "Topic 1",
+      "subtopics": ["Subtopic 1.1", "Subtopic 1.2"]
+    },
+    {
+      "name": "Topic 2",
+      "subtopics": ["Subtopic 2.1", "Subtopic 2.2"]
+    },
+    {
+      "name": "Topic 3",
+      "subtopics": ["Subtopic 3.1", "Subtopic 3.2"]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Visualization</title>
+    <style>
+        .graph-container {
+            position: relative;
+            height: 750px;
+            width: 100%;
+            background-color: #222222;
+        }
+    </style>
+</head>
+<body>
+    <h1>Graph Visualization</h1>
+    <div class="graph-container">
+        <iframe src="{{ graph_file }}" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    <script>
+    // Wait for the iframe to load
+    document.querySelector('.graph-container iframe').onload = function() {
+        // Access the iframe's window object
+        var iframeWindow = this.contentWindow;
+
+        // Override the click event handler for nodes
+        iframeWindow.network.on("click", function(params) {
+            if (params.nodes.length > 0) {
+                var nodeId = params.nodes[0];
+                var node = iframeWindow.nodes.get(nodeId);
+                if (node && node.shape === 'box') {
+                    // Toggle the visibility of the subtopic node
+                    var subtopicNodeId = nodeId + "_subtopics";
+                    var subtopicNode = iframeWindow.nodes.get(subtopicNodeId);
+                    if (subtopicNode) {
+                        subtopicNode.hidden = !subtopicNode.hidden;
+                        iframeWindow.nodes.update(subtopicNode);
+
+                        // Toggle the visibility of the edge connecting to the subtopic node
+                        var edges = iframeWindow.edges.get({
+                            filter: function(edge) {
+                                return edge.from === nodeId && edge.to === subtopicNodeId;
+                            }
+                        });
+                        if (edges.length > 0) {
+                            edges[0].hidden = !edges[0].hidden;
+                            iframeWindow.edges.update(edges[0]);
+                        }
+                    }
+                }
+            }
+        });
+    };
+    </script>
+</body>
+</html>

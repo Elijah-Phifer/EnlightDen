@@ -7,6 +7,7 @@ import NotesPage from './pages/NotesPage/NotesPage';
 import MindMapPage from './pages/MindMapPage/MindMapPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Navbar from './components/Navbar'; // Import the Navbar component
+import PomodoroPage from './pages/PomodorePage/PomodorePage';
 
 const App: React.FC = () => {
   const getMindMapData = (noteId: string) => {
@@ -41,6 +42,7 @@ const App: React.FC = () => {
           <Route path="/dash" element={<DashboardPage />} />
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/mindmap/:noteId" element={<MindMapPage getMindMapData={getMindMapData} />} />
+          <Route path="/pomodore" element ={<PomodoroPage />} />
         </Routes>
       </>
     );

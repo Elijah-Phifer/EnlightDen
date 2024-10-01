@@ -13,6 +13,9 @@ const Navbar: React.FC = () => {
       <Menu.Item as={NavLink} to="/notes">
         Notes
       </Menu.Item>
+      <Menu.Item as={NavLink} to="/pomodore">
+        Pomodore
+      </Menu.Item>
       {/* <Menu.Item as={NavLink} to="/mindmap">
         Mind Map
       </Menu.Item> */}

@@ -4,7 +4,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import NotesPage from './pages/NotesPage/NotesPage';
-import MindMapPage from './pages/MindMapPage/MindMapPage';
+import MindMapPage from './pages/MindMapPage/MindMapPage'; // Adjust the path as per your folder structure
+import { getMindMapData } from './utils/mindMapUtils'; // Assuming you store the utility in the utils folder
 import LoginPage from './pages/LoginPage/LoginPage';
 import Navbar from './components/Navbar'; // Import the Navbar component
 
@@ -40,7 +41,7 @@ const App: React.FC = () => {
           <Route path='/' element={<LoginPage />} />
           <Route path="/dash" element={<DashboardPage />} />
           <Route path="/notes" element={<NotesPage />} />
-          <Route path="/mindmap/:noteId" element={<MindMapPage getMindMapData={getMindMapData} />} />
+          <Route path="/mindmap/:mapId" element={<MindMapPage />} />
         </Routes>
       </>
     );

@@ -24,7 +24,7 @@
   }
   
   .show-tabs {
-    max-width: 300px; /* Adjust based on the number of tabs */
+    max-width: 400px; /* Adjust based on the number of tabs */
   }
   
   .hide-tabs {
@@ -44,5 +44,6 @@
   .ui.menu .item:hover {
     color: #00B5D8 !important;
     text-shadow: 0px 0px 10px rgba(0, 181, 216, 0.5);
+    background-color: transparent !important;
   }
   

@@ -37,7 +37,7 @@ const NavBar: React.FC = () => {
       </Menu.Item>
 
       {/* Arrow stays in place on the left, tabs roll out to the right */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
+      <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', flexGrow: 1, paddingLeft: '10px' }}>
         <div className="toggle-icon" onClick={toggleTabs} style={{ cursor: 'pointer', marginRight: '0.5em' }}>
           <Icon
             name={tabsVisible ? 'chevron up' : 'chevron down'}
@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
           <Menu.Item
             as={NavLink}
             to="/calendar"
-            style={{ color: '#B0B0B0', transition: 'color 0.3s' }}
+            style={{ color: '#B0B0B0', transition: 'color 0.3s', }}
           >
             Calendar
           </Menu.Item>
@@ -69,6 +69,13 @@ const NavBar: React.FC = () => {
             style={{ color: '#B0B0B0', transition: 'color 0.3s' }}
           >
             Study Session
+          </Menu.Item>
+          <Menu.Item
+            as={NavLink}
+            to="/flashcards"
+            style={{ color: '#B0B0B0', transition: 'color 0.3s'}}
+          >
+            Flashcards
           </Menu.Item>
         </Menu.Menu>
       </div>

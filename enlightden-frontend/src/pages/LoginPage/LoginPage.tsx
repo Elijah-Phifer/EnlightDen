@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Grid, Header, Message, Segment, Icon, Container } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../src/apiClient';
 import './AuthPage.css'; // Import custom CSS for dark mode
@@ -65,12 +65,7 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-  <div>
-    <Container textAlign="center">
-      <Header as="h1" style={{height: '10vh', paddingTop: '80px', fontSize: '40px'}}><center>
-        <Icon name="graduation" style={{fontSize:'55px'}} />
-          </center></Header>
-      <Grid textAlign="center" style={{ height: '65vh' }} verticalAlign="middle">
+    <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
           {isLogin ? 'Log-in to your account' : 'Sign-up for a new account'}
@@ -129,8 +124,6 @@ const AuthPage: React.FC = () => {
         </Button>
       </Grid.Column>
     </Grid>
-  </Container>
- </div>
   );
 };
 

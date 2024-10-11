@@ -1,0 +1,15 @@
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/bin/Debug/net8.0/LearningStarter
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/bin/Debug/net8.0/LearningStarter.deps.json
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/bin/Debug/net8.0/LearningStarter.runtimeconfig.json
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/bin/Debug/net8.0/LearningStarter.dll
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/bin/Debug/net8.0/LearningStarter.pdb
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.GeneratedMSBuildEditorConfig.editorconfig
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.AssemblyInfoInputs.cache
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.AssemblyInfo.cs
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.csproj.CoreCompileInputs.cache
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.sourcelink.json
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.dll
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/refint/LearningStarter.dll
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.pdb
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/LearningStarter.genruntimeconfig.cache
+/Users/elijahphifer/CMPS411/EnlightDen/LearningStarter/obj/Debug/net8.0/ref/LearningStarter.dll

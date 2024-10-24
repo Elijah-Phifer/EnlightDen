@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Header, Loader, Message, Container, Segment, List, Button, Input, Form, Divider, Icon } from 'semantic-ui-react';
+import { Header, Loader, Message, Container, Segment, List, Button, Radio, Form, Divider, Icon } from 'semantic-ui-react';
 import apiClient from '../../../src/apiClient'; // Axios instance for API calls
 
 interface Question {
@@ -19,6 +19,11 @@ interface TestData {
 interface UserAnswer {
   questionId: string;
   userResponse: string;
+}
+
+interface UserGrade {
+  score: number;
+  passed: boolean;
 }
 
 const TestPage: React.FC = () => {
@@ -66,6 +71,24 @@ const TestPage: React.FC = () => {
   };
 
   // Grade the test
+
+  // const gradeTest = async () => {
+  //   try {
+  //     const response = await apiClient.post('/api/StudyTool/GradeTest', {
+  //       StudyToolId: testId,
+  //       UserAnswers: userAnswers,
+  //     });
+
+  //     if (response.status === 200) {
+  //       setScore(response.data.Score);
+  //       setSubmitted(true); // Mark test as submitted to show the results
+  //     } else {
+  //       setErrorMessage('Failed to grade the test.');
+  //     }
+  //   } catch (error) {
+  //     setErrorMessage('An error occurred while grading the test.');
+  //   }
+  // };
   const gradeTest = () => {
     let correctCount = 0;
     userAnswers.forEach((userAnswer) => {
@@ -115,12 +138,24 @@ const TestPage: React.FC = () => {
                   </List.Header>
                   {!submitted ? (
                     <Form>
-                      <Input
+                    {['True', 'False'].map((option, idx) => (
+                    <Form.Field key={idx}>
+                      <Radio
+                        label={option}
+                        name={`question-${question.id}`}
+                        value={option}
+                        checked={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse === option}
+                        onChange={(e, { value }) => handleInputChange(question.id, value as string)}
+                        style={{ marginBottom: '1em', width: '100%' }}
+                      />
+                    </Form.Field>
+                  ))}
+                      {/* <Input
                         placeholder="Type your answer here..."
                         value={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse || ''}
                         onChange={(e) => handleInputChange(question.id, e.target.value)}
                         style={{ marginBottom: '1em', width: '100%' }}
-                      />
+                      /> */}
                     </Form>
                   ) : (
                     <div>

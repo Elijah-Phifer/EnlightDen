@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import { Button, Container, Header, Message } from 'semantic-ui-react';
-import BrownNoise from '/Users/masonturner/EnlightDen/enlightden-frontend/src/Assets/BrownNoise.mp3'; // Adjusted import path
+import BrownNoise from '/Users/elijahphifer/CMPS411/EnlightDen/enlightden-frontend/src/Assets/BrownNoise.mp3'; // Adjusted import path
 
 // Custom Input Wrapper
 const CustomInput = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(

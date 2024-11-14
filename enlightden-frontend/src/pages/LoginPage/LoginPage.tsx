@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../src/apiClient';
 import './AuthPage.css'; // Import custom CSS for dark mode
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS styles
 
 const AuthPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -16,51 +18,47 @@ const AuthPage: React.FC = () => {
 
   const handleSubmit = async () => {
     setErrorMessage('');
-    setLoading(true); // Set loading to true when login/signup starts
+    setLoading(true); // Start loading when login/signup begins
 
     // Simple validation
     if (!username || !password || (!isLogin && !confirmPassword)) {
-      setErrorMessage('Please fill in all fields.');
-      setLoading(false); // Stop loading on validation error
+      toast.error('Please fill in all fields.');
+      setLoading(false); // Stop loading
       return;
     }
 
     if (!isLogin && password !== confirmPassword) {
-      setErrorMessage('Passwords do not match.');
-      setLoading(false); // Stop loading on validation error
+      toast.error('Passwords do not match.');
+      setLoading(false); // Stop loading
       return;
     }
 
     try {
       const url = isLogin ? '/api/UserAuth/Login' : '/api/UserAuth/Register';
 
-      // Construct payload based on login or signup
       const payload = isLogin
-        ? { username, password } // Login payload
-        : { username, password, email }; // Register payload
+        ? { username, password }
+        : { username, password, email };
 
       const response = await apiClient.post(url, payload);
 
       if (response.status === 200) {
         if (isLogin) {
-          // Handle successful login
-          const token = response.data.token; // Assuming token is in the response
-          localStorage.setItem('token', token); // Store token in localStorage
-
-          // Redirect to Dashboard after successful login
-          navigate('/dash');
+          const token = response.data.token;
+          localStorage.setItem('token', token);
+          toast.success('Login successful! Redirecting...');
+          navigate('/dash'); // Redirect to dashboard
         } else {
-          // Handle successful sign-up (don't log in, just redirect to login page)
-          setErrorMessage('Registration successful! Please log in.');
-          setIsLogin(true); // Switch back to login mode
+          toast.success('Registration successful! Please log in.');
+          setIsLogin(true); // Switch to login mode
         }
       } else {
-        setErrorMessage(response.data.message || 'An error occurred.');
+        toast.error(response.data.message || 'An error occurred.');
       }
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again later.');
+      toast.error('An error occurred. Please try again later.');
     } finally {
-      setLoading(false); // Stop loading after the request completes
+      setLoading(false); // Stop loading
     }
   };
 
@@ -110,7 +108,14 @@ const AuthPage: React.FC = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             )}
-            <Button color="teal" fluid size="large" type="submit" loading={loading} disabled={loading}>
+            <Button
+              color="teal"
+              fluid
+              size="large"
+              type="submit"
+              loading={loading}
+              disabled={loading}
+            >
               {isLogin ? 'Login' : 'Sign Up'}
             </Button>
           </Segment>
@@ -118,10 +123,18 @@ const AuthPage: React.FC = () => {
 
         {errorMessage && <Message negative>{errorMessage}</Message>}
 
-        {/* Register button with margin for spacing */}
-        <Button fluid basic color="teal" style={{ marginTop: '1em' }} onClick={() => setIsLogin(!isLogin)}>
+        <Button
+          fluid
+          basic
+          color="teal"
+          style={{ marginTop: '1em' }}
+          onClick={() => setIsLogin(!isLogin)}
+        >
           {isLogin ? 'Register a new account' : 'Back to Login'}
         </Button>
+
+        {/* ToastContainer to render notifications */}
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       </Grid.Column>
     </Grid>
   );

@@ -11,6 +11,7 @@ import UserClassesPage from './pages/ClassPage/ClassPage';
 import CalendarPage from './pages/Calendar/CalendarPage';
 import StudySessionPage from './pages/StudySessionPage/StudySessionPage';
 import TestPage from './pages/TestPage/TestPage';
+import FlashcardTester from './pages/FlashCardPage/FlashCardPage';
 
 const App: React.FC = () => {
   const getMindMapData = (noteId: string) => {
@@ -49,7 +50,7 @@ const App: React.FC = () => {
           <Route path="/classes" element={<UserClassesPage />} />
           <Route path="/studysession" element={<StudySessionPage />} />
           <Route path="/test/:testId" element={<TestPage />} />  {/* Route for the TestPage */}
-
+          <Route path="/flashcards/:flashcardId" element={<FlashcardTester />} />
         </Routes>
       </>
     );

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, Button, Icon, Card, Grid, Message, Modal, Form, Input, Divider, Popup } from 'semantic-ui-react';
+import { Container, Header, Button, Icon, Card, Grid, Message, Modal, Form, Input, Divider, Popup, Dropdown } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../src/apiClient';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Class {
   id: string;
@@ -18,6 +20,8 @@ const Dashboard: React.FC = () => {
   const [newClassDescription, setNewClassDescription] = useState<string>('');
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [showWelcomePopup, setShowWelcomePopup] = useState<boolean>(true);
+    const [selectedClass, setSelectedClass] = useState<Class | null>(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,11 +58,14 @@ const Dashboard: React.FC = () => {
         setIsModalOpen(false);
         setNewClassName('');
         setNewClassDescription('');
+        toast.success('Class created successfully!');
       } else {
         setErrorMessage('Failed to create class.');
+        toast.error('Failed to create class.');
       }
     } catch (error) {
       setErrorMessage('An error occurred while creating the class.');
+      toast.error('An error occurred while creating the class.');
     }
   };
 
@@ -66,6 +73,51 @@ const Dashboard: React.FC = () => {
     navigate(`/class/${classId}/notes`);
   };
 
+  // Handle class update
+  const handleUpdateClass = async () => {
+    if (!selectedClass) return;
+
+    try {
+      const response = await apiClient.put(`/api/Class/${selectedClass.id}`, {
+        name: newClassName,
+        description: newClassDescription,
+      });
+
+      if (response.status === 200) {
+        setClasses(classes.map(c => c.id === selectedClass.id ? { ...c, name: newClassName, description: newClassDescription } : c));
+        setIsEditModalOpen(false);
+        setNewClassName('');
+        setNewClassDescription('');
+        setSelectedClass(null);
+        toast.success('Class updated successfully!');
+      } else {
+        setErrorMessage('Failed to update class.');
+        toast.error('Failed to update class.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred while updating the class.');
+      toast.error('An error occurred while updating the class.');
+    }
+  };
+
+  // Handle class delete
+  const handleDeleteClass = async (classId: string) => {
+    try {
+      const response = await apiClient.delete(`/api/Class/${classId}`);
+      if (response.status === 200) {
+        setClasses(classes.filter(c => c.id !== classId));
+        toast.success('Class deleted successfully!');
+      } else {
+        setErrorMessage('Failed to delete class.');
+        toast.error('Failed to delete class.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred while deleting the class.');
+      toast.error('An error occurred while deleting the class.');
+    }
+  };
+
+  // Open/close modal functions
   const openCreateClassModal = () => {
     setIsModalOpen(true);
   };
@@ -75,6 +127,21 @@ const Dashboard: React.FC = () => {
     setErrorMessage(null);
     setNewClassName('');
     setNewClassDescription('');
+  };
+
+  const openEditClassModal = (classItem: Class) => {
+    setSelectedClass(classItem);
+    setNewClassName(classItem.name);
+    setNewClassDescription(classItem.description);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditClassModal = () => {
+    setIsEditModalOpen(false);
+    setErrorMessage(null);
+    setNewClassName('');
+    setNewClassDescription('');
+    setSelectedClass(null);
   };
 
   return (
@@ -156,6 +223,27 @@ const Dashboard: React.FC = () => {
                 onClick={() => handleClassClick(classItem.id)}
                 onMouseEnter={() => setHoveredCard(classItem.id)} 
                 onMouseLeave={() => setHoveredCard(null)}
+                extra={
+                  <Dropdown
+                    icon={{ name: 'ellipsis horizontal', color: 'white' }}
+                    pointing="top left"
+                    className="icon"
+                    style={{ position: 'absolute', top: '10px', left: '10px', color: '#FFFFFF' }}
+                  >
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        icon="edit"
+                        text="Update"
+                        onClick={() => openEditClassModal(classItem)}
+                      />
+                      <Dropdown.Item
+                        icon="trash"
+                        text="Delete"
+                        onClick={() => handleDeleteClass(classItem.id)}
+                      />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                }
                 style={{
                   backgroundColor: '#DDBEA8',
                   color: '#FFFFFF',
@@ -165,6 +253,7 @@ const Dashboard: React.FC = () => {
                   padding: '1em',
                   transform: hoveredCard === classItem.id ? 'scale(1.05)' : 'scale(1)',
                   transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  position: 'relative',
                 }}
               />
             ))}
@@ -200,12 +289,107 @@ const Dashboard: React.FC = () => {
               </Form.Field>
             </Form>
           </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={closeCreateClassModal} color="brown">
+          <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+            <Button
+              onClick={closeCreateClassModal}
+              color="red"
+              style={{
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = '#C0392B')}
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = 'red')}
+            >
               Cancel
             </Button>
-            <Button primary onClick={handleCreateClass} color='olive'>
+            <Button
+              primary
+              onClick={handleCreateClass}
+              disabled={!newClassName}
+              style={{
+                backgroundColor: newClassName ? '#00B5D8' : '#B0B0B0',
+                color: '#FFFFFF',
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                if (newClassName) {
+                  e.currentTarget.style.backgroundColor = '#008BB2';
+                }
+              }}
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                if (newClassName) {
+                  e.currentTarget.style.backgroundColor = '#00B5D8';
+                }
+              }}
+            >
               Create Class
+            </Button>
+          </Modal.Actions>
+        </Modal>
+
+        {/* Modal for editing a class */}
+        <Modal
+          open={isEditModalOpen}
+          onClose={closeEditClassModal}
+          style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}
+        >
+          <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+            Edit Class
+          </Modal.Header>
+          <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+            <Form>
+              <Form.Field>
+                <label style={{ color: '#FFFFFF' }}>Class Name</label>
+                <Input
+                  placeholder="Enter class name"
+                  value={newClassName}
+                  onChange={(e) => setNewClassName(e.target.value)}
+                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label style={{ color: '#FFFFFF' }}>Class Description</label>
+                <Input
+                  placeholder="Enter class description"
+                  value={newClassDescription}
+                  onChange={(e) => setNewClassDescription(e.target.value)}
+                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                />
+              </Form.Field>
+            </Form>
+          </Modal.Content>
+          <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+            <Button
+              onClick={closeEditClassModal}
+              color="red"
+              style={{
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = '#C0392B')}
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = 'red')}
+            >
+              Cancel
+            </Button>
+            <Button
+              primary
+              onClick={handleUpdateClass}
+              disabled={!newClassName}
+              style={{
+                backgroundColor: newClassName ? '#00B5D8' : '#B0B0B0',
+                color: '#FFFFFF',
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                if (newClassName) {
+                  e.currentTarget.style.backgroundColor = '#008BB2';
+                }
+              }}
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                if (newClassName) {
+                  e.currentTarget.style.backgroundColor = '#00B5D8';
+                }
+              }}
+            >
+              Update Class
             </Button>
           </Modal.Actions>
         </Modal>

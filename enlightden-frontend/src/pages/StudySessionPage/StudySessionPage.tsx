@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import { Button, Container, Header, Message } from 'semantic-ui-react';
-import BrownNoise from '/Users/elijahphifer/CMPS411/EnlightDen/enlightden-frontend/src/Assets/BrownNoise.mp3'; // Adjusted import path
+import BrownNoise from './BrownNoise.mp3'; // Adjusted import path
+import lofiBackground from './lofiBackground.jpg'
+import brownBackground from './brownBackground.jpeg'
+import lofiBeat from './lofiBeat1.mp3'
 
 // Custom Input Wrapper
 const CustomInput = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
@@ -13,14 +16,42 @@ const StudySessionPage: React.FC = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [isBrownNoiseEnabled, setIsBrownNoiseEnabled] = useState<boolean>(false);
+  const [isLofiEnabled, setIsLofiEnabled] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(new Audio(BrownNoise));
+  const audioRef1 = useRef<HTMLAudioElement | null>(new Audio(BrownNoise));
+  const audioRef2 = useRef<HTMLAudioElement | null>(new Audio(lofiBeat));
+  const [background,setBackground] = useState<string>('');
+  const [promptColor,setPromptColor]= useState<string>('#00B5D8')
+  //const [toggleColor, setToggleColor]=useState<string>('')
+  const [header2Color,setHeader2Color]=useState<string>('#B0B0B0')
+  const [headerColor,setHeaderColor]=useState<string>('white')
 
+  //loop audio
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.loop = true; // Set loop to true
+    if (audioRef1.current) {
+      audioRef1.current.loop = true; // Set loop to true
+    }
+    if(audioRef2.current){
+      audioRef2.current.loop =true;
     }
   }, []);
+
+ 
+  //dynamic backgrund changes logic
+  useEffect(() => {
+    // Set the background image on the body element
+    document.body.style.backgroundImage = `url(${background})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.minHeight = '100vh';
+
+    // Clean up when the component unmounts or when background changes
+    return () => {
+        document.body.style.backgroundImage = '';
+    };
+}, [background]); // Depend on 'background' state
+
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
@@ -31,10 +62,15 @@ const StudySessionPage: React.FC = () => {
           if (prev === 1) {
             setMessage('Well done, time for a study break!');
             // Stop audio when timer ends
-            if (audioRef.current) {
-              audioRef.current.pause();
-              audioRef.current.currentTime = 0; // Reset audio to start
+            if (audioRef1.current) {
+              audioRef1.current.pause();
+              audioRef1.current.currentTime = 0; // Reset audio to start
             }
+            if (audioRef2.current) {
+              audioRef2.current.pause();
+              audioRef2.current.currentTime = 0; // Reset audio to start
+            }
+            
           }
           return prev - 1;
         });
@@ -48,6 +84,7 @@ const StudySessionPage: React.FC = () => {
     };
   }, [isActive, totalSeconds]);
 
+  
   const handleStart = () => {
     const [h, m, s] = timeInput.split(':').map(Number);
     const seconds = h * 3600 + m * 60 + s;
@@ -57,8 +94,11 @@ const StudySessionPage: React.FC = () => {
       setMessage(null);
       
       // Play audio if brown noise is enabled
-      if (isBrownNoiseEnabled && audioRef.current) {
-        audioRef.current.play();
+      if (isBrownNoiseEnabled && audioRef1.current) {
+        audioRef1.current.play();
+      }
+      if(isLofiEnabled && audioRef2.current){
+        audioRef2.current.play();
       }
     }
   };
@@ -70,21 +110,64 @@ const StudySessionPage: React.FC = () => {
     setMessage(null);
     
     // Stop audio when timer resets
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0; // Reset audio to start
+    if (audioRef1.current) {
+      audioRef1.current.pause();
+      audioRef1.current.currentTime = 0; // Reset audio to start
+    }
+    if (audioRef2.current) {
+      audioRef2.current.pause();
+      audioRef2.current.currentTime = 0; // Reset audio to start
     }
   };
 
   const toggleBrownNoise = () => {
+    //Change colors for theme
+    setBackground(isBrownNoiseEnabled ? '' : brownBackground);
+    setPromptColor(isBrownNoiseEnabled ? '#00B5D8' : '#bd8842');
+    setHeader2Color(isBrownNoiseEnabled ? '#B0B0B0' : 'black');
+    setHeaderColor(isBrownNoiseEnabled ? 'white': 'black');
+
     setIsBrownNoiseEnabled(prev => !prev);
-    
+    if(isLofiEnabled){
+    setIsLofiEnabled(prev => !prev);
+    if (audioRef2.current) {
+      audioRef2.current.pause();
+      audioRef2.current.currentTime = 0; // Reset audio to start
+    }
+    }
     // If enabling brown noise and timer is active, play audio
-    if (!isBrownNoiseEnabled && audioRef.current && isActive) {
-      audioRef.current.play();
-    } else if (isBrownNoiseEnabled && audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0; // Reset audio to start
+    if (!isBrownNoiseEnabled && audioRef1.current && isActive) {
+      audioRef1.current.play();
+    } else if (isBrownNoiseEnabled && audioRef1.current) {
+      audioRef1.current.pause();
+      audioRef1.current.currentTime = 0; // Reset audio to start
+    }
+  };
+
+  
+  const toggleLofi = () => {
+    //Change colors for theme
+    setBackground(isLofiEnabled ? '' : lofiBackground);
+    //setPromptColor(isBrownNoiseEnabled ? '#00B5D8' : '#bd8842');
+    setHeader2Color(isLofiEnabled ? '#B0B0B0' : 'white');
+    setHeaderColor(isLofiEnabled ? 'white': 'white');
+    
+    setPromptColor(isLofiEnabled ? '#00B5D8': '#00B5D8');
+    setIsLofiEnabled(prev => !prev);
+    if(isBrownNoiseEnabled){
+      setIsBrownNoiseEnabled(prev => !prev);
+      if (audioRef1.current) {
+        audioRef1.current.pause();
+        audioRef1.current.currentTime = 0; // Reset audio to start
+      }
+      
+    }
+    // If enabling brown noise and timer is active, play audio
+    if (!isLofiEnabled && audioRef2.current && isActive) {
+      audioRef2.current.play();
+    } else if (isLofiEnabled && audioRef2.current) {
+      audioRef2.current.pause();
+      audioRef2.current.currentTime = 0; // Reset audio to start
     }
   };
 
@@ -126,9 +209,17 @@ const StudySessionPage: React.FC = () => {
   };
 
   return (
-    <Container style={{ marginTop: '50px', paddingTop: '100px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Header as="h1" style={{ fontSize: '50px' }}>Pomodoro Timer</Header>
-      <Header as="h2" style={{ fontSize: '16px', color: '#B0B0B0' }}>Set the timer for however long you want to study, then click start!</Header>
+    <Container style={{ 
+      marginTop: '50px', 
+      paddingTop: '100px', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center',
+      
+      }}>
+     
+      <Header as="h1" style={{ fontSize: '50px', color: headerColor }}>Pomodoro Timer</Header>
+      <Header as="h2" style={{ fontSize: '16px', color: headerColor }}>Set the timer for however long you want to study, then click start!</Header>
       
       <CustomInput
         ref={inputRef}
@@ -158,17 +249,41 @@ const StudySessionPage: React.FC = () => {
   
       <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', position: 'absolute', top: '100px', right: '20px', zIndex: 1000 }}>
         <div style={{ textAlign: 'center' }}>
-          <Message style={{ marginTop: '10px', padding: '10px', fontSize: '1em', width: '250px', backgroundColor: '#00B5D8', color: '#2E2E3E', fontWeight: '800' }}>
-            Want background noise to help you focus while studying?
+          <Message style={{ marginTop: '10px', padding: '10px', fontSize: '1em', width: '250px', backgroundColor: `${promptColor}`, color: '#2E2E3E', fontWeight: '800' }}>
+            Try a different study environment!
           </Message>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Button 
-            toggle 
-            active={isBrownNoiseEnabled} 
-            onClick={toggleBrownNoise} 
-            style={{ marginTop: '10px', padding: '10px', fontSize: '16px' }}>
-            {isBrownNoiseEnabled ? 'Disable Brown Noise' : 'Enable Brown Noise'}
-          </Button>
+  toggle 
+  active={isBrownNoiseEnabled} 
+  onClick={toggleBrownNoise} 
+  style={{ 
+    marginTop: '10px', 
+    marginBottom: '10px',
+    padding: '10px', 
+    fontSize: '16px', 
+     // Change text color based on active state
+  }}>
+  {isBrownNoiseEnabled ? 'Disable Brown Noise' : 'Enable Brown Noise'}
+</Button>
+<Button 
+  toggle 
+  active={isLofiEnabled} 
+  onClick={toggleLofi} 
+  style={{ 
+    marginTop: '10px', 
+    
+    padding: '10px', 
+    fontSize: '16px', 
+     // Change text color based on active state
+  }}>
+  {isLofiEnabled ? 'Disable Lofi Beats' : 'Enable Lofi Beats'}
+</Button>
+</div>
+
+
         </div>
+        
       </div>
   
       {message && (

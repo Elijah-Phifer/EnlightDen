@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Icon, Container, Grid, Segment, Modal, Form, Input, Loader, Message, Dimmer, Header } from 'semantic-ui-react';
+import { Button, Icon, Container, Grid, Segment, Modal, Form, Input, Loader, Message, Dimmer, Header, Dropdown } from 'semantic-ui-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import apiClient from '../../../src/apiClient'; // Axios instance for API calls
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Note {
   id: string;
@@ -19,6 +21,7 @@ const NotesPage: React.FC = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMindMap, setLoadingMindMap] = useState<boolean>(false); // Full-screen loader for mind map generation
+  const [loadingNoteCreation, setLoadingNoteCreation] = useState<boolean>(false); // Loader for note creation
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [newNoteTitle, setNewNoteTitle] = useState<string>('');
@@ -26,44 +29,53 @@ const NotesPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null); // Track selected note for modal content
   const [className, setClassName] = useState<string>(''); // Store the class name
+  const [isUpdateMode, setIsUpdateMode] = useState<boolean>(false);
 
-  // Fetch class name and notes for the current class
-  useEffect(() => {
-    const fetchClassData = async () => {
-      try {
-        // Fetch the class name by classId
-        const classResponse = await apiClient.get(`/api/Class/${classId}`);
-        if (classResponse.status === 200) {
-          setClassName(classResponse.data.name); // Set the class name
-        }
-
-        // Fetch the notes for the class
-        const notesResponse = await apiClient.get(`/api/Notes/GetByClassId/${classId}`);
-        if (notesResponse.status === 200) {
-          setNotes(Array.isArray(notesResponse.data) ? notesResponse.data : []);
-        } else {
-          setErrorMessage('Failed to load notes.');
-        }
-      } catch (error) {
-        setErrorMessage('An error occurred while fetching data.');
-      } finally {
-        setLoading(false);
+  // Consolidated function to fetch class data and notes
+  const fetchClassData = async () => {
+    try {
+      // Fetch the class name by classId
+      const classResponse = await apiClient.get(`/api/Class/${classId}`);
+      if (classResponse.status === 200) {
+        setClassName(classResponse.data.name); // Set the class name
       }
-    };
 
-    fetchClassData();
+      // Fetch the notes for the class
+      const notesResponse = await apiClient.get(`/api/Notes/GetByClassId/${classId}`);
+      if (notesResponse.status === 200) {
+        setNotes(Array.isArray(notesResponse.data) ? notesResponse.data : []);
+      } else {
+        setErrorMessage('Failed to load notes.');
+        toast.error('Failed to load notes.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred while fetching data.');
+      toast.error('An error occurred while fetching data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch class data when classId changes
+  useEffect(() => {
+    if (classId) {
+      fetchClassData();
+    }
   }, [classId]);
 
   // Open modal to create a new note
   const openNoteModal = () => {
     setIsNoteModalOpen(true);
+    setIsUpdateMode(false);
   };
 
-  // Close modal after note creation
+  // Close modal after note creation or update
   const closeNoteModal = () => {
     setIsNoteModalOpen(false);
     setNewNoteTitle('');
     setSelectedFile(null);
+    setErrorMessage(null);
+    setIsUpdateMode(false);
   };
 
   // Handle file selection for note creation
@@ -77,6 +89,7 @@ const NotesPage: React.FC = () => {
   const handleUpload = async () => {
     if (!selectedFile || !newNoteTitle) {
       setErrorMessage('Please provide a valid file and title for the note.');
+      toast.error('Please provide a valid file and title for the note.');
       return;
     }
 
@@ -84,6 +97,8 @@ const NotesPage: React.FC = () => {
     formData.append('file', selectedFile);
     formData.append('classId', classId!); // Append classId from URL params
     formData.append('title', newNoteTitle);
+
+    setLoadingNoteCreation(true);
 
     try {
       const response = await apiClient.post('/api/Notes/Create', formData, {
@@ -96,42 +111,109 @@ const NotesPage: React.FC = () => {
         const newNote: Note = response.data;
         setNotes([...notes, newNote]);
         closeNoteModal(); // Close the modal after upload
+        toast.success('Note uploaded successfully!');
       } else {
         setErrorMessage('Failed to upload the note.');
+        toast.error('Failed to upload the note.');
       }
     } catch (error) {
       setErrorMessage('An error occurred while uploading the note.');
+      toast.error('An error occurred while uploading the note.');
+    } finally {
+      setLoadingNoteCreation(false);
     }
   };
 
-  // Call API to generate mind map for the given noteId
-  const generateMindMap = async (noteId: string) => {
+  // Handle mind map generation
+  const handleGenerateMindMap = async (noteId: string) => {
     try {
-      setLoadingMindMap(true); // Show full-screen loader while generating mind map
+      setLoadingMindMap(true);
       const response = await apiClient.post(`/api/MindMap/CreateMindMapFromNote/${noteId}`);
-
       if (response.status === 200) {
-        // Navigate to the MindMapPage after the mind map is generated
+        toast.success('Mind map generated successfully!');
         navigate(`/mindmap/${noteId}`);
       } else {
-        setErrorMessage('Failed to generate mind map.');
+        toast.error('Failed to generate mind map.');
       }
     } catch (error) {
-      setErrorMessage('An error occurred while generating the mind map.');
+      toast.error('An error occurred while generating the mind map.');
     } finally {
-      setLoadingMindMap(false); // Hide the loader after the operation
+      setLoadingMindMap(false);
     }
   };
 
-  // Navigate to view the existing mind map
-  const viewMindMap = (noteId: string) => {
-    navigate(`/mindmap/${noteId}`);
+  // Handle note update
+  const handleUpdateNote = async () => {
+    if (!newNoteTitle) {
+      toast.error('Please provide a valid title for the note.');
+      return;
+    }
+
+    if (!selectedNote?.id) {
+      toast.error('No note selected to update.');
+      return;
+    }
+
+    const payload = {
+      title: newNoteTitle,
+      classId: classId,
+    };
+
+    setLoadingNoteCreation(true);
+
+    try {
+      const response = await apiClient.put(
+        `/api/Notes/${selectedNote.id}`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success('Note updated successfully!');
+        closeNoteModal();
+        fetchClassData(); // Fetch notes again after update
+      } else {
+        toast.error('Failed to update the note.');
+      }
+    } catch (error) {
+      console.error('Error updating note:', error);
+      toast.error('An error occurred while updating the note.');
+    } finally {
+      setLoadingNoteCreation(false);
+    }
+  };
+
+  // Handle note deletion
+  const handleDeleteNote = async (noteId: string) => {
+    try {
+      const response = await apiClient.delete(`/api/Notes/${noteId}`);
+      if (response.status === 200) {
+        setNotes(notes.filter((note) => note.id !== noteId));
+        toast.success('Note deleted successfully!');
+      } else {
+        toast.error('Failed to delete note.');
+      }
+    } catch (error) {
+      toast.error('An error occurred while deleting the note.');
+    }
   };
 
   // Open modal to view the selected note content
   const openNoteContentModal = (note: Note) => {
     setSelectedNote(note);
     setIsModalOpen(true);
+  };
+
+  // Open modal for updating note
+  const openUpdateNoteModal = (note: Note) => {
+    setSelectedNote(note);
+    setNewNoteTitle(note.title);
+    setIsNoteModalOpen(true);
+    setIsUpdateMode(true);
   };
 
   // Close the note content modal
@@ -141,7 +223,27 @@ const NotesPage: React.FC = () => {
   };
 
   return (
-    <Container style={{ paddingTop: '90px' }}> {/* Fixes navbar overlap */}
+    <Container style={{ paddingTop: '90px' }}>
+      <Button
+        icon='arrow left'
+        onClick={() => navigate('/dash')}
+        color='blue'
+        style={{
+          marginBottom: '20px',
+          backgroundColor: '#00B5D8',
+          color: '#FFFFFF',
+          transition: 'background-color 0.3s ease'
+        }}
+        size='large'
+        className='responsive-button'
+        onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+          (e.currentTarget.style.backgroundColor = '#008BB2')
+        }
+        onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+          (e.currentTarget.style.backgroundColor = '#00B5D8')
+        }
+      /> {/* Fixes navbar overlap */}
+      <ToastContainer />
       <h1>Notes for Class: {className}</h1> {/* Display class name instead of ID */}
 
       {errorMessage && <Message negative>{errorMessage}</Message>}
@@ -161,47 +263,82 @@ const NotesPage: React.FC = () => {
         onClick={openNoteModal}
       />
 
-      {/* Modal for uploading notes */}
+      {/* Modal for uploading or updating notes */}
       <Modal
         open={isNoteModalOpen}
         onClose={closeNoteModal}
         closeIcon
-        style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }} // Dark theme modal
+        style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}
       >
         <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
-          Create a New Note
+          {isUpdateMode ? 'Update Note' : 'Create a New Note'}
         </Modal.Header>
         <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
           <Form>
             <Form.Field>
-              <label style={{ color: '#FFFFFF' }}>Note Title</label> {/* Fix input label color */}
+              <label style={{ color: '#FFFFFF' }}>Note Title</label>
               <Input
                 placeholder="Enter note title"
                 value={newNoteTitle}
                 onChange={(e) => setNewNoteTitle(e.target.value)}
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }} // Dark input fields
+                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
               />
             </Form.Field>
-            <Form.Field>
-              <label style={{ color: '#FFFFFF' }}>Upload PDF</label> {/* Fix input label color */}
-              <Input
-                type="file"
-                onChange={handleFileChange}
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }} // Dark input fields
-              />
-            </Form.Field>
+
+            {!isUpdateMode && (
+              <Form.Field>
+                <label style={{ color: '#FFFFFF' }}>Upload PDF</label>
+                <Input
+                  type="file"
+                  onChange={handleFileChange}
+                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                />
+              </Form.Field>
+            )}
           </Form>
         </Modal.Content>
         <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
-          <Button onClick={closeNoteModal} color="red">
+          <Button
+            onClick={closeNoteModal}
+            color="red"
+            style={{ transition: 'background-color 0.3s ease' }}
+            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+              (e.currentTarget.style.backgroundColor = '#C0392B')
+            }
+            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+              (e.currentTarget.style.backgroundColor = 'red')
+            }
+          >
             Cancel
           </Button>
           <Button
-            onClick={handleUpload}
-            primary
-            style={{ transition: 'background-color 0.3s' }} // Hover transition for submit button
+            onClick={isUpdateMode ? handleUpdateNote : handleUpload}
+            disabled={!newNoteTitle || (isUpdateMode ? false : !selectedFile) || loadingNoteCreation}
+            style={{
+              backgroundColor:
+                newNoteTitle && !loadingNoteCreation ? '#00B5D8' : '#B0B0B0',
+              color: '#FFFFFF',
+              transition: 'background-color 0.3s ease',
+              cursor: newNoteTitle && !loadingNoteCreation ? 'pointer' : 'not-allowed',
+            }}
+            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+              if (newNoteTitle && !loadingNoteCreation) {
+                e.currentTarget.style.backgroundColor = '#008BB2';
+              }
+            }}
+            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+              if (newNoteTitle && !loadingNoteCreation) {
+                e.currentTarget.style.backgroundColor = '#00B5D8';
+              }
+            }}
           >
-            Submit
+            {loadingNoteCreation ? (
+              <Loader active inline size="small" />
+            ) : isUpdateMode ? (
+              'Update'
+            ) : (
+              'Submit'
+            )}
           </Button>
         </Modal.Actions>
       </Modal>
@@ -222,21 +359,41 @@ const NotesPage: React.FC = () => {
                 marginBottom: '1em',
                 position: 'relative',
               }}
-              onClick={() => openNoteContentModal(note)} // Clicking the card opens the modal with note content
             >
+              <Dropdown
+                icon="ellipsis horizontal"
+                floating
+                labeled
+                className="icon"
+                button
+                style={{ color: '#FFFFFF', backgroundColor: 'transparent', position: 'absolute', top: '10px', left: '10px' }}
+              >
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    icon="edit"
+                    text="Update"
+                    onClick={() => openUpdateNoteModal(note)}
+                  />
+                  <Dropdown.Item
+                    icon="trash"
+                    text="Delete"
+                    onClick={() => handleDeleteNote(note.id)}
+                  />
+                </Dropdown.Menu>
+              </Dropdown>
               <Grid>
-                <Grid.Column width={12}>
+                <Grid.Column width={12} style={{ paddingLeft: '50px' }} onClick={() => openNoteContentModal(note)}>
                   <Header as="h3" style={{ color: '#FFFFFF' }}>{note.title}</Header>
                 </Grid.Column>
 
-                <Grid.Column width={4} textAlign="right">
+                <Grid.Column width={4} textAlign="left">
                   {/* Conditional button for generating or viewing mind map */}
                   {note.hasMindMap ? (
                     <Button
                       primary
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent modal from opening when the button is clicked
-                        viewMindMap(note.id);
+                        navigate(`/mindmap/${note.id}`);
                       }}
                       className="hover-scale"
                     >
@@ -247,7 +404,7 @@ const NotesPage: React.FC = () => {
                       primary
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent modal from opening when the button is clicked
-                        generateMindMap(note.id);
+                        handleGenerateMindMap(note.id);
                       }}
                       className="hover-scale"
                     >
@@ -267,8 +424,8 @@ const NotesPage: React.FC = () => {
       )}
 
       {/* Full-screen loader for mind map generation */}
-      <Dimmer active={loadingMindMap} page>
-        <Loader>Generating Mind Map...</Loader>
+      <Dimmer active={loadingMindMap || loadingNoteCreation} page>
+        <Loader>{loadingMindMap ? 'Generating Mind Map...' : isUpdateMode ? 'Updating Note...' : 'Creating Note...'}</Loader>
       </Dimmer>
 
       {/* Modal to display the content of the selected note */}

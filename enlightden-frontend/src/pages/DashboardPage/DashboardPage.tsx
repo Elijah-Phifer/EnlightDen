@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, Button, Icon, Card, Grid, Message, Modal, Form, Input, Divider } from 'semantic-ui-react';
+import { Container, Header, Button, Icon, Card, Grid, Message, Modal, Form, Input, Divider, Popup } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../../../src/apiClient';
 
@@ -16,7 +16,8 @@ const Dashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newClassName, setNewClassName] = useState<string>(''); 
   const [newClassDescription, setNewClassDescription] = useState<string>('');
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null); // Track the hovered card
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [showWelcomePopup, setShowWelcomePopup] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,9 +39,8 @@ const Dashboard: React.FC = () => {
     fetchClasses();
   }, []);
 
-  // Handle class creation
   const handleCreateClass = async () => {
-    const descriptionToSend = newClassDescription || ''; // If empty, send empty string
+    const descriptionToSend = newClassDescription || '';
 
     try {
       const response = await apiClient.post('/api/Class/Create', {
@@ -62,12 +62,10 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  // Handle class navigation
   const handleClassClick = (classId: string) => {
     navigate(`/class/${classId}/notes`);
   };
 
-  // Open/close modal functions
   const openCreateClassModal = () => {
     setIsModalOpen(true);
   };
@@ -80,73 +78,68 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: '#1E1E2E',
-        minHeight: '100vh',
-        paddingTop: '120px',
-        paddingBottom: '2em',
-      }}
-    >
+    <div style={{ backgroundColor: '#F3DFC1', minHeight: '100vh', paddingTop: '120px', paddingBottom: '2em' }}>
       <Container textAlign="center">
-        {/* Hero Section */}
-        <div
-          style={{
-            backgroundColor: '#2E2E3E',
-            padding: '3em 1em',
-            borderRadius: '10px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-            marginBottom: '2em',
-            position: 'relative',
-          }}
-        >
-          <Header as="h1" style={{ color: '#FFFFFF', marginBottom: '0.5em', fontSize: '3em' }}>
-            Welcome to <span style={{ color: '#00B5D8' }}>EnlightDen</span>
-          </Header>
-          <p style={{ color: '#F8F9FA', fontSize: '1.3em', margin: '1em 0' }}>
-            Your Ultimate Study Companion
-          </p>
 
-          <Divider inverted />
-          <p style={{ color: '#A0A0A0', fontSize: '1.2em' }}>
-            Where learning is made easier, one step at a time.
-          </p>
-
-          {/* Subtle icon background for visual enhancement */}
-          <Icon
-            name="lightbulb"
-            style={{
-              position: 'absolute',
-              bottom: '-20px',
-              right: '-10px',
-              fontSize: '6em',
-              color: '#2E2E3E',
-              opacity: '0.3',
-            }}
+        {/* Dismissible Welcome Popup */}
+        {showWelcomePopup && (
+          <Popup
+            content="Welcome to EnlightDen, your ultimate study companion!"
+            on="click"
+            open={showWelcomePopup}
+            onClose={() => setShowWelcomePopup(false)}
+            position="top right"
+            trigger={<Icon name="close" style={{ position: 'absolute', top: 10, right: 10, cursor: 'pointer' }} />}
           />
-        </div>
+        )}
 
-        {/* Quick Access Section */}
-        <Grid centered stackable columns={1}>
-          <Grid.Column textAlign="center">
-          <Button
-            color="green"
-            size="large"
-            onClick={openCreateClassModal}
-            style={{ width: '50%', transition: 'background-color 0.3s ease' }}
-            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = '#00A76B')}
-            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = 'green')}
-          >
-            <Icon name="add" /> Create a New Class
-          </Button>
+        {/* Dashboard Sections */}
+        <Grid columns={3} divided stackable style={{ marginBottom: '2em' }}>
+          <Grid.Column>
+            <Card style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF', padding: '1em' }}>
+              <Header as="h3">Last Taken Exams</Header>
+              <Button basic color="brown">Exam 1 - 80%</Button>
+              <Button basic color="brown">Exam 2 - 70%</Button>
+            </Card>
+          </Grid.Column>
+          <Grid.Column>
+            <Card style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF', padding: '1em' }}>
+              <Header as="h3">Average Knowledge Level</Header>
+              <p>Course 1: 70%</p>
+              <p>Course 2: 85%</p>
+              <p>Course 3: 60%</p>
+            </Card>
+          </Grid.Column>
+          <Grid.Column>
+            <Card style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF', padding: '1em' }}>
+              <Header as="h3">Reminders</Header>
+              <Button basic color="brown">Reminder 1 - Study for Exam 1</Button>
+              <Button basic color="brown">Reminder 2 - Review Lecture Notes</Button>
+            </Card>
           </Grid.Column>
         </Grid>
 
-        {/* Display Classes on Dashboard */}
-        <Container style={{ marginTop: '3em' }}>
-          <Header as="h2" style={{ color: '#FFFFFF' }}>Your Classes</Header>
-          {errorMessage && <Message negative>{errorMessage}</Message>}
+        {/* Create Class Button */}
+        <Grid centered stackable columns={1}>
+          <Grid.Column textAlign="center">
+            <Button
+              color="brown"
+              size="large"
+              onClick={openCreateClassModal}
+              style={{ width: '50%', transition: 'background-color 0.3s ease' }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = '#9D765C')}
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = '#A5673F')}
+            >
+              <Icon name="add" /> Create a New Class
+            </Button>
+          </Grid.Column>
+        </Grid>
 
+        {/* Classes Section */}
+        <Divider style={{ backgroundColor: '#DDBEA8', height: '3px', marginBottom: '2em' }} />
+        <Container style={{ marginTop: '3em' }}>
+          <Header as="h2" style={{ color: '#72705B' }}>Your Classes</Header>
+          {errorMessage && <Message negative>{errorMessage}</Message>}
           {classes.length === 0 && !loading && (
             <Message info>
               <Message.Header>No classes found</Message.Header>
@@ -158,20 +151,13 @@ const Dashboard: React.FC = () => {
             {classes.map((classItem) => (
               <Card
                 key={classItem.id}
-                header={
-                  <Header as="h3" style={{ color: '#FFFFFF' }}>
-                    <Icon name="book" style={{ color: '#00B5D8' }} />
-                    {classItem.name}
-                  </Header>
-                }
-                description={
-                  <p style={{ color: '#B0B0B0' }}>{classItem.description || ''}</p>
-                }
+                header={<Header as="h3" style={{ color: '#FFFFFF' }}>{classItem.name}</Header>}
+                description={<p style={{ color: '#FFFFFF' }}>{classItem.description || ''}</p>}
                 onClick={() => handleClassClick(classItem.id)}
                 onMouseEnter={() => setHoveredCard(classItem.id)} 
                 onMouseLeave={() => setHoveredCard(null)}
                 style={{
-                  backgroundColor: '#2E2E3E',
+                  backgroundColor: '#DDBEA8',
                   color: '#FFFFFF',
                   borderRadius: '10px',
                   boxShadow: hoveredCard === classItem.id ? '0 6px 12px rgba(0, 0, 0, 0.4)' : '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -189,42 +175,36 @@ const Dashboard: React.FC = () => {
         <Modal
           open={isModalOpen}
           onClose={closeCreateClassModal}
-          style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}
+          style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}
         >
-          <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
-            Create a New Class
-          </Modal.Header>
-          <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Header>Create a New Class</Modal.Header>
+          <Modal.Content>
             <Form>
               <Form.Field>
-                <label style={{ color: '#FFFFFF' }}>Class Name</label>
+                <label>Class Name</label>
                 <Input
                   placeholder="Enter class name"
                   value={newClassName}
                   onChange={(e) => setNewClassName(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                  style={{ backgroundColor: '#F3DFC1', color: '#72705B' }}
                 />
               </Form.Field>
               <Form.Field>
-                <label style={{ color: '#FFFFFF' }}>Class Description</label>
+                <label>Class Description</label>
                 <Input
                   placeholder="Enter class description"
                   value={newClassDescription}
                   onChange={(e) => setNewClassDescription(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                  style={{ backgroundColor: '#F3DFC1', color: '#72705B' }}
                 />
               </Form.Field>
             </Form>
           </Modal.Content>
-          <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
-            <Button onClick={closeCreateClassModal} color="red">
+          <Modal.Actions>
+            <Button onClick={closeCreateClassModal} color="brown">
               Cancel
             </Button>
-            <Button
-              primary
-              onClick={handleCreateClass}
-              style={{ backgroundColor: '#00B5D8', color: '#FFFFFF' }}
-            >
+            <Button primary onClick={handleCreateClass} color='olive'>
               Create Class
             </Button>
           </Modal.Actions>

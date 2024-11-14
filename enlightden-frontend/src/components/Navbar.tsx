@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
       inverted
       fixed="top"
       style={{
-        background: 'linear-gradient(90deg, #2E2E3E 0%, #1F1F2E 100%)',
+        background: 'linear-gradient(90deg, #9D9A7A 0%, #72705B 100%)',
         height: '70px',
         border: 'none',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -42,7 +42,7 @@ const NavBar: React.FC = () => {
           <Icon
             name={tabsVisible ? 'chevron up' : 'chevron down'}
             size="large"
-            style={{ color: '#B0B0B0' }}
+            style={{ color: '#FFFFFF' }}
             title="Toggle Tabs"
           />
         </div>
@@ -52,14 +52,14 @@ const NavBar: React.FC = () => {
           <Menu.Item
             as={NavLink}
             to="/calendar"
-            style={{ color: '#B0B0B0', transition: 'color 0.3s' }}
+            style={{ color: '#FFFFFF', transition: 'color 0.3s' }}
           >
             Calendar
           </Menu.Item>
           <Menu.Item
             as={NavLink}
             to="/studysession"
-            style={{ color: '#B0B0B0', transition: 'color 0.3s' }}
+            style={{ color: '#FFFFFF', transition: 'color 0.3s' }}
           >
             Study Session
           </Menu.Item>
@@ -67,7 +67,7 @@ const NavBar: React.FC = () => {
       </div>
 
       {/* Profile on the far right */}
-      <Menu.Item style={{ color: '#B0B0B0', fontSize: '1.2em' }}>
+      <Menu.Item style={{ color: '#FFFFFF', fontSize: '1.2em' }}>
         <Icon name="user" />
         Profile
       </Menu.Item>

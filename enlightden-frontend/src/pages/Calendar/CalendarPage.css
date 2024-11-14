@@ -3,7 +3,7 @@
     padding-top: 80px; /* Ensure space for the navbar */
     padding-left: 20px;
     padding-right: 20px;
-    background-color: #1E1E2E;
+    background-color: #F3DFC1;
     color: white;
   }
   
@@ -12,13 +12,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2E2E3E;
+    background-color: #DDBEA8;
     padding: 10px;
     color: white;
   }
   
   .toolbar-container button {
-    background-color: #00B5D8;
+    background-color: #72705B;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -39,7 +39,7 @@
   
   /* Evenly distribute the day boxes */
   .rbc-month-view {
-    background-color: #2E2E3E;
+    background-color: #DDBEA8;
     color: white;
     display: flex;
     flex-wrap: wrap;
@@ -48,7 +48,7 @@
   
   /* Adjust the day boxes to be consistent in size */
   .rbc-day-bg {
-    background-color: #2E2E3E;
+    background-color: #DDBEA8;
     border: none; /* Remove direct borders */
     border-top: 1px solid #3E3E4E; /* Top border for horizontal separation */
     border-left: 1px solid #3E3E4E; /* Left border for vertical separation */
@@ -81,7 +81,7 @@
   
   /* Remove highlight for today */
   .rbc-today {
-    background-color: #2E2E3E !important;
+    background-color: #DDBEA8 !important;
     color: white !important;
   }
   

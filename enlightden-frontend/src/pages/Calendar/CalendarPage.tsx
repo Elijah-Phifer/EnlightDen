@@ -51,7 +51,7 @@ const CalendarPage: React.FC = () => {
 
   return (
     <Container fluid className="calendar-container">
-      <Header as="h2" inverted>
+      <Header as="h2" inverted textAlign="center" style={{ marginBottom: '1em', color: "#72705B" }}>
         My Calendar
       </Header>
       <div className="responsive-calendar">

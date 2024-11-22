@@ -94,23 +94,23 @@ const TestPage: React.FC = () => {
   }
 
   return (
-    <div style={{ backgroundColor: '#1E1E2E', minHeight: '100vh', color: '#FFFFFF' }}>
+    <div style={{ backgroundColor: '#F3DFC1', minHeight: '100vh', color: '#4A5451' }}>
       {/* Header Section */}
       <Container textAlign="center" style={{ paddingTop: '80px', paddingBottom: '20px' }}>
-        <Header as="h1" style={{ color: '#FFFFFF' }}>
+        <Header as="h1" style={{ color: '#4A5451' }}>
           Test: {testData?.name}
         </Header>
       </Container>
 
       {/* Display questions */}
       <Container>
-        <Segment raised style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}>
-          <Header as="h3" style={{ color: '#FFFFFF' }}>Answer the following questions</Header>
+        <Segment raised style={{ backgroundColor: '#DDBEA8', color: '#4A5451' }}>
+          <Header as="h3" style={{ color: '#4A5451' }}>Answer the following questions</Header>
           <List divided relaxed>
             {testData?.questions.map((question, index) => (
               <List.Item key={question.id}>
                 <List.Content>
-                  <List.Header style={{ color: '#FFFFFF', marginBottom: '10px' }}>
+                  <List.Header style={{ color: '#4A5451', marginBottom: '10px' }}>
                     Question {index + 1}: {question.request}
                   </List.Header>
                   {!submitted ? (
@@ -124,11 +124,11 @@ const TestPage: React.FC = () => {
                     </Form>
                   ) : (
                     <div>
-                      <p style={{ color: userAnswers.find((answer) => answer.questionId === question.id)?.userResponse.trim().toLowerCase() === question.answer.trim().toLowerCase() ? 'lightgreen' : 'lightcoral' }}>
+                      <p style={{ color: userAnswers.find((answer) => answer.questionId === question.id)?.userResponse.trim().toLowerCase() === question.answer.trim().toLowerCase() ? 'lightgreen' : '#800524' }}>
                         <Icon name={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse.trim().toLowerCase() === question.answer.trim().toLowerCase() ? 'check' : 'close'} />
                         <strong>Your Answer:</strong> {userAnswers.find((answer) => answer.questionId === question.id)?.userResponse || 'No answer given'}
                       </p>
-                      <p style={{ color: '#00B5D8' }}>
+                      <p style={{ color: '#49764C' }}>
                         <strong>Correct Answer:</strong> {question.answer}
                       </p>
                     </div>
@@ -142,7 +142,7 @@ const TestPage: React.FC = () => {
             <Button
               primary
               onClick={gradeTest}
-              style={{ backgroundColor: '#00B5D8', color: '#FFFFFF', marginTop: '20px' }}
+              style={{ backgroundColor: '#688D6A', color: '#FFFFFF', marginTop: '20px' }}
             >
               Submit Test
             </Button>
@@ -151,7 +151,7 @@ const TestPage: React.FC = () => {
           {submitted && (
             <>
               <Divider />
-              <Header as="h3" style={{ color: '#00B5D8' }}>
+              <Header as="h3" style={{ color: '#688D6A' }}>
                 You scored {score}/{testData?.questions.length}
               </Header>
               <Message
@@ -167,7 +167,7 @@ const TestPage: React.FC = () => {
               <Button
                 secondary
                 onClick={resetTest}
-                style={{ backgroundColor: '#FFFFFF', color: '#00B5D8', marginTop: '20px' }}
+                style={{ backgroundColor: '#688D6A', color: '#FFFFFF', marginTop: '20px' }}
               >
                 Retake Test
               </Button>

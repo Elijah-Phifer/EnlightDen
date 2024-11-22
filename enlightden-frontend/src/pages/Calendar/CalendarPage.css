@@ -3,7 +3,7 @@
     padding-top: 80px; /* Ensure space for the navbar */
     padding-left: 20px;
     padding-right: 20px;
-    background-color: #1E1E2E;
+    background-color: #DDBEA8;
     color: white;
   }
   
@@ -12,14 +12,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2E2E3E;
+    background-color: #504136;
     padding: 10px;
     color: white;
   }
   
   .toolbar-container button {
-    background-color: #00B5D8;
-    color: white;
+    background-color: #F3DFC1;
+    color: #4A5451;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
@@ -27,7 +27,8 @@
   }
   
   .toolbar-container button:hover {
-    background-color: #009BB0;
+    background-color: #8d7869;
+    color: white;
   }
   
   /* Calendar container */
@@ -35,12 +36,13 @@
     width: 100%;
     height: auto;
     margin: 0 auto;
+    background-color: #504136;
   }
   
   /* Evenly distribute the day boxes */
   .rbc-month-view {
-    background-color: #2E2E3E;
-    color: white;
+    background-color: #F3DFC1;
+    color: #4A5451;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -48,11 +50,11 @@
   
   /* Adjust the day boxes to be consistent in size */
   .rbc-day-bg {
-    background-color: #2E2E3E;
+    background-color: #F3DFC1;
     border: none; /* Remove direct borders */
-    border-top: 1px solid #3E3E4E; /* Top border for horizontal separation */
-    border-left: 1px solid #3E3E4E; /* Left border for vertical separation */
-    color: white;
+    border-top: 1px solid #4A5451; /* Top border for horizontal separation */
+    border-left: 1px solid #1c1f1e; /* Left border for vertical separation */
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,7 +75,7 @@
   }
   
   .rbc-event {
-    background-color: #00B5D8;
+    background-color: #504136;
     color: white;
     padding: 5px;
     border-radius: 4px;
@@ -81,7 +83,7 @@
   
   /* Remove highlight for today */
   .rbc-today {
-    background-color: #2E2E3E !important;
+    background-color: #504136!important;
     color: white !important;
   }
   
@@ -100,3 +102,7 @@
     }
   }
   
+  footer {
+    background-color: #504136; /* Replace #desiredColor with the desired color code */
+    color: #504136; /* Replace #textColor with the desired text color */
+  }

@@ -65,7 +65,7 @@ const AuthPage: React.FC = () => {
   return (
     <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="teal" textAlign="center">
+        <Header as="h2" color="brown" textAlign="center">
           {isLogin ? 'Log-in to your account' : 'Sign-up for a new account'}
         </Header>
         <Form size="large" onSubmit={handleSubmit}>
@@ -126,7 +126,7 @@ const AuthPage: React.FC = () => {
         <Button
           fluid
           basic
-          color="teal"
+          color="brown"
           style={{ marginTop: '1em' }}
           onClick={() => setIsLogin(!isLogin)}
         >

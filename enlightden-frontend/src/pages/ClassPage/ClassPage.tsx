@@ -85,7 +85,7 @@ const UserClassesPage: React.FC = () => {
 
 
   return (
-    <div style={{ paddingTop: '70px', backgroundColor: '#1E1E2E', minHeight: '100vh', padding: '2em 0' }}>
+    <div style={{ paddingTop: '70px', color:'#DDBEA8', backgroundColor: '#DDBEA8', minHeight: '100vh', padding: '2em 0' }}>
       <Container>
         <Header as="h1" style={{ color: '#FFFFFF', marginBottom: '1.5em' }} textAlign="center">
           Your Classes
@@ -114,7 +114,7 @@ const UserClassesPage: React.FC = () => {
               }
               onClick={() => handleClassClick(classItem.id)} // Navigate to the notes page on click
               style={{
-                backgroundColor: '#2E2E3E', // Darker background for the card
+                backgroundColor: '#DDBEA8', // Darker background for the card
                 color: '#FFFFFF', // White text for the header
                 borderRadius: '10px',
                 boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -153,7 +153,7 @@ const UserClassesPage: React.FC = () => {
                   placeholder="Enter class name"
                   value={newClassName}
                   onChange={(e) => setNewClassName(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }} // Dark input fields
+                  style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }} // Dark input fields
                 />
               </Form.Field>
               <Form.Field>
@@ -162,7 +162,7 @@ const UserClassesPage: React.FC = () => {
                   placeholder="Enter class description"
                   value={newClassDescription}
                   onChange={(e) => setNewClassDescription(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }} // Dark input fields
+                  style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }} // Dark input fields
                 />
               </Form.Field>
             </Form>

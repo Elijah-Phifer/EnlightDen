@@ -231,15 +231,15 @@ const StudySessionPage: React.FC = () => {
           fontSize: '50px',
           width: '300px',
           textAlign: 'center',
-          backgroundColor: '#2E2E3E',
-          color: '#FFFFFF',
+          backgroundColor: '#F3DFC1',
+          color: '#4A5451',
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
           borderRadius: '10px',
         }}
       />
   
       <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-        <Button primary onClick={handleStart} style={{ margin: '10px', padding: '10px', fontSize: '16px' }}>
+        <Button primary onClick={handleStart} style={{ backgroundColor:'#DDBEA8', margin: '10px', padding: '10px', fontSize: '16px' }}>
           Start
         </Button>
         <Button secondary onClick={handleReset} style={{ margin: '10px', padding: '10px', fontSize: '16px', backgroundColor: 'red' }}>
@@ -249,7 +249,7 @@ const StudySessionPage: React.FC = () => {
   
       <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', position: 'absolute', top: '100px', right: '20px', zIndex: 1000 }}>
         <div style={{ textAlign: 'center' }}>
-          <Message style={{ marginTop: '10px', padding: '10px', fontSize: '1em', width: '250px', backgroundColor: `${promptColor}`, color: '#2E2E3E', fontWeight: '800' }}>
+          <Message style={{ marginTop: '10px', padding: '10px', fontSize: '1em', width: '250px', backgroundColor: '#F3DFC1', color: '#504136', fontWeight: '800' }}>
             Try a different study environment!
           </Message>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

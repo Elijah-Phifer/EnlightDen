@@ -21,6 +21,7 @@ const Dashboard: React.FC = () => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null); // Track the hovered card
   const [selectedClass, setSelectedClass] = useState<Class | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -148,7 +149,7 @@ const Dashboard: React.FC = () => {
   return (
     <div
       style={{
-        backgroundColor: '#1E1E2E',
+        backgroundColor: '#F3DFC1',
         minHeight: '100vh',
         paddingTop: '120px',
         paddingBottom: '2em',
@@ -159,7 +160,7 @@ const Dashboard: React.FC = () => {
         {/* Hero Section */}
         <div
           style={{
-            backgroundColor: '#2E2E3E',
+            backgroundColor: '#DDBEA8',
             padding: '3em 1em',
             borderRadius: '10px',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
@@ -167,15 +168,15 @@ const Dashboard: React.FC = () => {
             position: 'relative',
           }}
         >
-          <Header as="h1" style={{ color: '#FFFFFF', marginBottom: '0.5em', fontSize: '3em' }}>
-            Welcome to <span style={{ color: '#00B5D8' }}>EnlightDen</span>
+          <Header as="h1" style={{ color: '#4A5451', marginBottom: '0.5em', fontSize: '3em' }}>
+            Welcome to <span style={{ color: '#4A5451' }}>EnlightDen</span>
           </Header>
-          <p style={{ color: '#F8F9FA', fontSize: '1.3em', margin: '1em 0' }}>
+          <p style={{ color: '#4A5451', fontSize: '1.3em', margin: '1em 0' }}>
             Your Ultimate Study Companion
           </p>
 
           <Divider inverted />
-          <p style={{ color: '#A0A0A0', fontSize: '1.2em' }}>
+          <p style={{ color: '#4A5451', fontSize: '1.2em' }}>
             Where learning is made easier, one step at a time.
           </p>
 
@@ -187,7 +188,7 @@ const Dashboard: React.FC = () => {
               bottom: '-20px',
               right: '-10px',
               fontSize: '6em',
-              color: '#2E2E3E',
+              color: '#4A5451',
               opacity: '0.3',
             }}
           />
@@ -196,22 +197,146 @@ const Dashboard: React.FC = () => {
         {/* Quick Access Section */}
         <Grid centered stackable columns={1}>
           <Grid.Column textAlign="center">
+
+          <div
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F3DFC1', // Optional: page background color
+  }}
+>
+  <Card
+    style={{
+     width: '550px', // Adjust the width
+     padding:'10px',
+     backgroundColor: '#504136',
+     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Optional: shadow for depth
+    color:'#FFFFFF'
+    }}
+  >
+    <div style={{
+      color:'#FFFFFF'
+    }}>
+    <Card.Content onClick={() => setIsFormVisible(!isFormVisible)}>
+      <Icon name="add" size="large" />
+      <Card.Header>Click to create a new class</Card.Header>
+      {!isFormVisible /*&& <Card.Description>Click to create a new class</Card.Description> */}
+    </Card.Content>
+    </div>
+    {isFormVisible && (
+      <Card.Content>
+        <Form
+          onClick={(e: React.MouseEvent<HTMLFormElement>) => e.stopPropagation()}
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            handleCreateClass();
+          }}
+        >
+          <div style={{color:'#FFFFFF'}}>
+          <Form.Field>
+
+            <div >
+            <label style={{ color: '#FFFFFF' }}>Class Name</label>
+            <Input
+              placeholder="Enter class name"
+              value={newClassName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setNewClassName(e.target.value)
+              }
+              style={{color:'#F3DFC1'
+              }}
+            />
+            </div>
+          </Form.Field>
+          </div>
+          <Form.Field >
+            <label style={{ color: '#FFFFFF' }}>Class Description</label>
+            <Input
+              placeholder="Enter class description"
+              value={newClassDescription}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setNewClassDescription(e.target.value)
+              }
+              style={{  color: '#FFFFFF' }}
+            />
+            
+          </Form.Field>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
             <Button
-              color="green"
-              size="large"
-              onClick={openCreateClassModal}
-              style={{ width: '50%', transition: 'background-color 0.3s ease' }}
-              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = '#00A76B')}
-              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => (e.currentTarget.style.backgroundColor = 'green')}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.stopPropagation();
+                setIsFormVisible(false);
+              }}
+              color="red"
+              style={{
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+                (e.currentTarget.style.backgroundColor = '#C0392B')
+              }
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+                (e.currentTarget.style.backgroundColor = 'red')
+              }
             >
-              <Icon name="add" /> Create a New Class
+              Cancel
             </Button>
+            <Button
+              primary
+              type="submit"
+              disabled={!newClassName.trim()}
+              style={{
+                backgroundColor: newClassName.trim() ? '#618264' : '#618264',
+                color: '#FFFFFF',
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                if (newClassName.trim()) {
+                  e.currentTarget.style.backgroundColor = '#8AA88C';
+                }
+              }}
+              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                if (newClassName.trim()) {
+                  e.currentTarget.style.backgroundColor = '#618264';
+                }
+              }}
+            >
+              Create Class
+            </Button>
+          </div>
+        </Form>
+      </Card.Content>
+    )}
+  </Card>
+</div>
+
+
+         {/* <Button
+            color="green"
+            size="large"
+            onClick={openCreateClassModal}
+            style={{
+              width: '50%',
+              transition: 'background-color 0.3s ease',
+              backgroundColor: '#504136', // Note: Correct spelling of "backgroundColor"
+              color: '#fff', // Ensure text is readable
+            }}
+            onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.style.backgroundColor = '#4A5451';
+            }}
+            onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.style.backgroundColor = '#504136';
+            }}
+          >
+            <Icon name="add" /> Create a New Class
+          </Button> */}
+
           </Grid.Column>
         </Grid>
 
         {/* Display Classes on Dashboard */}
         <Container style={{ marginTop: '3em' }}>
-          <Header as="h2" style={{ color: '#FFFFFF' }}>Your Classes</Header>
+          <Header as="h2" style={{ color: '#4A5451' }}>Your Classes</Header>
           {errorMessage && <Message negative>{errorMessage}</Message>}
 
           {classes.length === 0 && !loading && (
@@ -227,12 +352,12 @@ const Dashboard: React.FC = () => {
                 key={classItem.id}
                 header={
                   <Header as="h3" style={{ color: '#FFFFFF' }}>
-                    <Icon name="book" style={{ color: '#00B5D8' }} />
+                    <Icon name="book" style={{ color: '#FFFFFF' }} />
                     {classItem.name}
                   </Header>
                 }
                 description={
-                  <p style={{ color: '#B0B0B0' }}>{classItem.description || ''}</p>
+                  <p style={{ color: '#FFFFFF' }}>{classItem.description || ''}</p>
                 }
                 onClick={() => handleClassClick(classItem.id)}
                 onMouseEnter={() => setHoveredCard(classItem.id)} 
@@ -259,7 +384,7 @@ const Dashboard: React.FC = () => {
                   </Dropdown>
                 }
                 style={{
-                  backgroundColor: '#2E2E3E',
+                  backgroundColor: '#504136',
                   color: '#FFFFFF',
                   borderRadius: '10px',
                   boxShadow: hoveredCard === classItem.id ? '0 6px 12px rgba(0, 0, 0, 0.4)' : '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -278,12 +403,12 @@ const Dashboard: React.FC = () => {
         <Modal
           open={isModalOpen}
           onClose={closeCreateClassModal}
-          style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}
+          style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}
         >
-          <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Header style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}>
             Create a New Class
           </Modal.Header>
-          <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Content style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}>
             <Form>
               <Form.Field>
                 <label style={{ color: '#FFFFFF' }}>Class Name</label>
@@ -291,7 +416,7 @@ const Dashboard: React.FC = () => {
                   placeholder="Enter class name"
                   value={newClassName}
                   onChange={(e) => setNewClassName(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                  style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}
                 />
               </Form.Field>
               <Form.Field>
@@ -300,12 +425,12 @@ const Dashboard: React.FC = () => {
                   placeholder="Enter class description"
                   value={newClassDescription}
                   onChange={(e) => setNewClassDescription(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                  style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}
                 />
               </Form.Field>
             </Form>
           </Modal.Content>
-          <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Actions style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}>
             <Button
               onClick={closeCreateClassModal}
               color="red"
@@ -322,18 +447,18 @@ const Dashboard: React.FC = () => {
               onClick={handleCreateClass}
               disabled={!newClassName}
               style={{
-                backgroundColor: newClassName ? '#00B5D8' : '#B0B0B0',
+                backgroundColor: newClassName ? '#00B5D8' : '#5A7D5D',
                 color: '#FFFFFF',
                 transition: 'background-color 0.3s ease',
               }}
               onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
                 if (newClassName) {
-                  e.currentTarget.style.backgroundColor = '#008BB2';
+                  e.currentTarget.style.backgroundColor = '#5A7D5D';
                 }
               }}
               onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
                 if (newClassName) {
-                  e.currentTarget.style.backgroundColor = '#00B5D8';
+                  e.currentTarget.style.backgroundColor = '#5A6D5D';
                 }
               }}
             >
@@ -346,7 +471,7 @@ const Dashboard: React.FC = () => {
         <Modal
           open={isEditModalOpen}
           onClose={closeEditClassModal}
-          style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}
+          style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}
         >
           <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
             Edit Class
@@ -373,7 +498,7 @@ const Dashboard: React.FC = () => {
               </Form.Field>
             </Form>
           </Modal.Content>
-          <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Actions style={{ backgroundColor: '#F3DFC1', color: '#F3DFC1' }}>
             <Button
               onClick={closeEditClassModal}
               color="red"
@@ -391,7 +516,7 @@ const Dashboard: React.FC = () => {
               disabled={!newClassName}
               style={{
                 backgroundColor: newClassName ? '#00B5D8' : '#B0B0B0',
-                color: '#FFFFFF',
+                color: '#F3DFC1',
                 transition: 'background-color 0.3s ease',
               }}
               onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {

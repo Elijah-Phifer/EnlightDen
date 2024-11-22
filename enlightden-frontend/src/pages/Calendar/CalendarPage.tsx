@@ -50,17 +50,19 @@ const CalendarPage: React.FC = () => {
   };
 
   return (
+
     <Container fluid className="calendar-container">
+      <div style={{backgroundColor:'#504136'}}>
       <Header as="h2" inverted>
         My Calendar
       </Header>
-      <div className="responsive-calendar">
+      <div className="responsive-calendar" style={{backgroundColor:'#504136'}}>
         <Calendar
           localizer={localizer}
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ minHeight: '80vh' }}
+          style={{ minHeight: '80vh', backgroundColor:'#504136', color:'#504136'}}
           views={['month']} // Only allow the month view
           defaultView={view}
           onSelectEvent={handleSelectEvent} // Handle event clicks
@@ -72,27 +74,28 @@ const CalendarPage: React.FC = () => {
       </div>
 
       {/* Modal to display event details */}
+      <div style={{backgroundColor:'#DDBEA8'}}>
       <Modal
         open={modalOpen}
         onClose={handleClose}
         size="small"
         style={{
-          backgroundColor: '#2E2E3E', // Dark mode background for the modal container
+          backgroundColor: '#DDBEA8', // Dark mode background for the modal container
           color: 'white', // White text
         }}
       >
         <Modal.Header
           style={{
-            backgroundColor: '#1E1E2E', // Darker header
-            color: 'white',
+            backgroundColor: '#DDBEA8', // Darker header
+            color: '#4A5451',
           }}
         >
           {selectedEvent?.title}
         </Modal.Header>
         <Modal.Content
           style={{
-            backgroundColor: '#2E2E3E', // Ensure the modal content is also dark
-            color: '#B0B0B0', // Light gray text for content
+            backgroundColor: '#DDBEA8', // Ensure the modal content is also dark
+            color: '#4A5451', // Light gray text for content
           }}
         >
           <p><strong>Description:</strong> {selectedEvent?.resource?.description}</p>
@@ -105,13 +108,13 @@ const CalendarPage: React.FC = () => {
         </Modal.Content>
         <Modal.Actions
           style={{
-            backgroundColor: '#1E1E2E', // Dark mode background for actions
+            backgroundColor: '#DDBEA8', // Dark mode background for actions
           }}
         >
           <Button
             onClick={handleClose}
             style={{
-              backgroundColor: '#00B5D8',
+              backgroundColor: '#504136',
               color: 'white',
             }}
           >
@@ -119,6 +122,8 @@ const CalendarPage: React.FC = () => {
           </Button>
         </Modal.Actions>
       </Modal>
+      </div>
+      </div>
     </Container>
   );
 };
@@ -134,7 +139,7 @@ const CustomToolbar = (toolbar: any) => {
   };
 
   return (
-    <div className="toolbar-container">
+    <div className="toolbar-container" >
       <button onClick={goToBack}>Back</button>
       <span>{toolbar.label}</span>
       <button onClick={goToNext}>Next</button>

@@ -65,15 +65,15 @@ const MindMapPage: React.FC = () => {
               shape: 'dot',
               size: 16,
               color: {
-                background: '#00B5D8',
+                background: '#504136',
                 border: '#FFFFFF',
               },
               font: {
-                color: '#FFFFFF',
+                color: '#4A5451',
               },
             },
             edges: {
-              color: '#00B5D8',
+              color: '#504136',
               width: 2,
             },
             physics: {
@@ -101,11 +101,11 @@ const MindMapPage: React.FC = () => {
     const edges: { from: string; to: string; weight: number }[] = [];
 
     const rootNodeId = data.id || 'root';
-    const rootNode = { id: rootNodeId, label: data.name, size: 20, color: 'lightblue' };
+    const rootNode = { id: rootNodeId, label: data.name, size: 20, color: '#504136' };
     nodes.push(rootNode);
 
     data.topics.forEach((topic) => {
-      const topicNode = { id: topic.id, label: topic.topic, size: 15, color: 'lightgreen' };
+      const topicNode = { id: topic.id, label: topic.topic, size: 15, color: '#95B197' };
       nodes.push(topicNode);
       edges.push({ from: rootNodeId, to: topic.id, weight: 2 });
     });
@@ -187,9 +187,9 @@ const MindMapPage: React.FC = () => {
   }
 
   return (
-    <div style={{ backgroundColor: '#1E1E2E', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#DDBEA8', minHeight: '100vh' }}>
       <Container textAlign="center" style={{ paddingTop: '110px', paddingBottom: '20px' }}>
-        <Header as="h1" style={{ color: '#FFFFFF' }}>
+        <Header as="h1" style={{ color: '#4A5451' }}>
           Mind Map for: {mindMapData?.name}
         </Header>
       </Container>
@@ -198,7 +198,7 @@ const MindMapPage: React.FC = () => {
         id="mindmap"
         style={{
           height: 'calc(100vh - 120px)',
-          backgroundColor: '#2E2E3E',
+          backgroundColor: '#F3DFC1',
           padding: '20px',
         }}
       ></div>
@@ -215,9 +215,9 @@ const MindMapPage: React.FC = () => {
       >
         <Modal.Header
           style={{
-            backgroundColor: '#1E1E2E',
+            backgroundColor: '#927763',
             color: '#FFFFFF',
-            borderBottom: '1px solid #00B5D8',
+            borderBottom: '1px solid #927763',
             borderRadius: '10px 10px 0 0',
           }}
         >
@@ -228,23 +228,23 @@ const MindMapPage: React.FC = () => {
 
         <Modal.Content
           style={{
-            backgroundColor: '#2E2E3E',
-            color: '#FFFFFF',
+            backgroundColor: '#DDBEA8',
+            color: '#4A5451',
             padding: '20px',
           }}
         >
           {!testExists || !flashcardExists ? (
             <Form>
               <Form.Field>
-                <label style={{ color: '#FFFFFF' }}>Name</label>
+                <label style={{ color: '#4A5451' }}>Name</label>
                 <Input
                   placeholder="Enter name"
                   value={testName}
                   onChange={(e) => setTestName(e.target.value)}
                   style={{
-                    backgroundColor: '#1E1E2E',
-                    color: '#FFFFFF',
-                    border: '1px solid #00B5D8',
+                    backgroundColor: '#DDBEA8',
+                    color: '#4A5451',
+                    border: '1px solid #DDBEA8',
                     borderRadius: '5px',
                     padding: '0px',
                     outline: 'none',
@@ -259,7 +259,7 @@ const MindMapPage: React.FC = () => {
 
         <Modal.Actions
   style={{
-    backgroundColor: '#1E1E2E',
+    backgroundColor: '#DDBEA8',
     padding: '20px',
     textAlign: 'right',
     borderRadius: '0 0 10px 10px',
@@ -271,7 +271,7 @@ const MindMapPage: React.FC = () => {
         primary
         onClick={() => navigate(`/test/${testId}`)}
         style={{
-          backgroundColor: '#00B5D8',
+          backgroundColor: '#688D6A',
           color: '#FFFFFF',
           borderRadius: '5px',
           padding: '10px 20px',
@@ -290,7 +290,7 @@ const MindMapPage: React.FC = () => {
       onClick={() => generateTestOrFlashcard('test')}
       disabled={!testName}
       style={{
-        backgroundColor: testName ? '#00B5D8' : '#555555',
+        backgroundColor: testName ? '#688D6A' : '#688D6A',
         color: '#FFFFFF',
         borderRadius: '5px',
         padding: '10px 20px',
@@ -309,7 +309,7 @@ const MindMapPage: React.FC = () => {
       primary
       onClick={() => navigate(`/flashcards/${flashcardId}`)}
       style={{
-        backgroundColor: '#00B5D8',
+        backgroundColor: '#688D6A',
         color: '#FFFFFF',
         borderRadius: '5px',
         padding: '10px 20px',
@@ -326,7 +326,7 @@ const MindMapPage: React.FC = () => {
       onClick={() => generateTestOrFlashcard('flashcard')}
       disabled={!testName}
       style={{
-        backgroundColor: testName ? '#00B5D8' : '#555555',
+        backgroundColor: testName ? '#688D6A' : '#688D6A',
         color: '#FFFFFF',
         borderRadius: '5px',
         padding: '10px 20px',
@@ -343,9 +343,9 @@ const MindMapPage: React.FC = () => {
       </Modal>
 
       <Modal open={viewTestModalOpen} onClose={() => setViewTestModalOpen(false)} size="small" style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}>
-        <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>View Study Tool for: {selectedTopic?.topic}</Modal.Header>
-        <Modal.Content style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}>
-          <Button primary onClick={viewTestOrFlashcard} style={{ backgroundColor: '#00B5D8', color: '#FFFFFF', padding: '10px 20px', borderRadius: '5px' }}>
+        <Modal.Header style={{ backgroundColor: '#927763E', color: '#FFFFFF' }}>View Study Tool for: {selectedTopic?.topic}</Modal.Header>
+        <Modal.Content style={{ backgroundColor: '#DDBEA8', color: '#4A5451' }}>
+          <Button primary onClick={viewTestOrFlashcard} style={{ backgroundColor: '#688D6A', color: '#FFFFFF', padding: '10px 20px', borderRadius: '5px' }}>
             View Study Tool
           </Button>
         </Modal.Content>

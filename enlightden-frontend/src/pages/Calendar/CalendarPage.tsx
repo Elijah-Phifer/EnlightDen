@@ -63,7 +63,8 @@ const events: Event[] = sessions.map((session) => ({
   start: new Date(Number(session.startTime) * 1000), // Convert startTime to Date object
   end: new Date(Number(session.endTime) * 1000),     // Convert EndTime to Date object
   resource: {
-    description: session.description, // Store the description in the 'resource' property
+    description: session.description,
+    className: session.className // Store the description in the 'resource' property
   },
 }));
 
@@ -152,6 +153,9 @@ const events: Event[] = sessions.map((session) => ({
         >
           <p><strong>Description:</strong> {selectedEvent?.resource?.description}</p>
           <p>
+          <p>
+            <strong>Class Name:</strong> {selectedEvent?.resource?.className}
+          </p>
             <strong>Start Time:</strong> {selectedEvent?.start.toLocaleString()}
           </p>
           <p>

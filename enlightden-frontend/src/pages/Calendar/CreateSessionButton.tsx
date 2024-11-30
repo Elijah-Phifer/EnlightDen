@@ -28,6 +28,7 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
       startTime: startUnixTimestamp,
       endTime: endUnixTimestamp,
       className,
+      
     };
 
     try {

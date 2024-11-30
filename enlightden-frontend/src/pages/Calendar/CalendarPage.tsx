@@ -106,7 +106,9 @@ const events: Event[] = sessions.map((session) => ({
       <Header as="h2" inverted>
         My Calendar
       </Header>
+      <div style = {{marginBottom: 10}}>
       <CreateSessionButton addSession={addSession} />
+      </div>
       <div className="responsive-calendar">
         <Calendar
           localizer={localizer}

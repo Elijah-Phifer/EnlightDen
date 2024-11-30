@@ -42,6 +42,10 @@ const Dashboard: React.FC = () => {
     fetchClasses();
   }, []);
 
+// Inside CalendarPage component
+
+
+
   // Handle class creation
   const handleCreateClass = async () => {
     const descriptionToSend = newClassDescription || ''; // If empty, send empty string
@@ -146,6 +150,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
+    
     <div
       style={{
         backgroundColor: '#1E1E2E',
@@ -154,6 +159,7 @@ const Dashboard: React.FC = () => {
         paddingBottom: '2em',
       }}
     >
+      
       <ToastContainer />
       <Container textAlign="center">
         {/* Hero Section */}
@@ -167,6 +173,7 @@ const Dashboard: React.FC = () => {
             position: 'relative',
           }}
         >
+          
           <Header as="h1" style={{ color: '#FFFFFF', marginBottom: '0.5em', fontSize: '3em' }}>
             Welcome to <span style={{ color: '#00B5D8' }}>EnlightDen</span>
           </Header>

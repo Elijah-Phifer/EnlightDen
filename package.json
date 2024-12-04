@@ -22,7 +22,10 @@
   "name": "enlightden",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "start": "concurrently \"npm run dev --prefix enlightden-backend\" \"npm run start --prefix enlightden-frontend\""
+    "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   }
 }

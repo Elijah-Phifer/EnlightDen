@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5203', // Your backend's base URL
+  baseURL: 'https://enlightdenbackendapi.onrender.com', // Your backend's base URL
   headers: {
     'Content-Type': 'application/json',
   },

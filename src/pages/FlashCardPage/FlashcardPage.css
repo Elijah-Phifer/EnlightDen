@@ -1,0 +1,109 @@
+/* Flashcard Page Styles */
+.flashcard-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #1E1E2E;
+    color: #FFFFFF;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+  }
+  
+  /* Title of the Flashcard Set */
+  .flashcard-set-title {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #89CFF0; /* Muted blue for title */
+  }
+  
+  /* Progress Indicator */
+  .progress-indicator {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #CCCCCC;
+  }
+  
+  /* Flashcard Container */
+  .flashcard-container {
+    perspective: 1000px;
+    width: 60%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .flashcard {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+  }
+  
+  .flashcard.flipped {
+    transform: rotateY(180deg);
+  }
+  
+  .flashcard .front,
+  .flashcard .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  }
+  
+  .flashcard .front {
+    background-color: #2E2E3E;
+    color: #FFFFFF;
+  }
+  
+  .flashcard .back {
+    background-color: #3A3A4B;
+    color: #89CFF0;
+    transform: rotateY(180deg);
+  }
+  
+  /* Navigation Buttons */
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 300px; /* Controls the arrow spacing */
+    margin-top: 30px;
+  }
+  
+  .navigation-buttons button {
+    background: none;
+    border: none;
+    font-size: 48px;
+    color: #89CFF0;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.3s ease;
+  }
+  
+  /* Hover and Active Effects */
+  .navigation-buttons button:hover {
+    color: #66B2D6;
+    transform: scale(1.2);
+  }
+  
+  .loader {
+    font-size: 24px;
+    font-weight: bold;
+    color: #89CFF0;
+  }
+  
+  .no-flashcards {
+    font-size: 24px;
+    color: #FF6347;
+    text-align: center;
+  }
+  

@@ -1,0 +1,102 @@
+/* Add padding so the calendar doesn't overlap with the navbar */
+.calendar-container {
+    padding-top: 80px; /* Ensure space for the navbar */
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #1E1E2E;
+    color: white;
+  }
+  
+  /* Toolbar styling */
+  .toolbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2E2E3E;
+    padding: 10px;
+    color: white;
+  }
+  
+  .toolbar-container button {
+    background-color: #00B5D8;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .toolbar-container button:hover {
+    background-color: #009BB0;
+  }
+  
+  /* Calendar container */
+  .responsive-calendar {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  
+  /* Evenly distribute the day boxes */
+  .rbc-month-view {
+    background-color: #2E2E3E;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Adjust the day boxes to be consistent in size */
+  .rbc-day-bg {
+    background-color: #2E2E3E;
+    border: none; /* Remove direct borders */
+    border-top: 1px solid #3E3E4E; /* Top border for horizontal separation */
+    border-left: 1px solid #3E3E4E; /* Left border for vertical separation */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex: 1 0 14%; /* 7 day week, evenly spread */
+    min-height: 130px; /* Adjust height */
+  }
+  
+  /* Fix the last row day boxes */
+  .rbc-month-row {
+    display: flex;
+    width: 100%;
+  }
+  
+  /* Create bottom border as the top of the day box below */
+  .rbc-month-row:not(:last-child) .rbc-day-bg {
+    border-bottom: 1px solid #3E3E4E; /* Bottom border on all but last row */
+  }
+  
+  .rbc-event {
+    background-color: #00B5D8;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  /* Remove highlight for today */
+  .rbc-today {
+    background-color: #2E2E3E !important;
+    color: white !important;
+  }
+  
+  /* Responsive design for different screen sizes */
+  @media (max-width: 768px) {
+    .rbc-day-bg {
+      min-height: 100px; /* Reduce height on tablets */
+      flex: 1 0 21%; /* Adjust width */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .rbc-day-bg {
+      min-height: 80px; /* Further reduce height for mobile */
+      flex: 1 0 100%; /* Stack day boxes vertically */
+    }
+  }
+  

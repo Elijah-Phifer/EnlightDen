@@ -1,0 +1,67 @@
+/* Dark Mode Theme for EnlightDen */
+
+body {
+  background-color: #1E1E2E; /* Deep dark gray for background */
+  color: #FFFFFF; /* White text for readability */
+  font-family: 'Lato', sans-serif;
+}
+
+/* General App Colors */
+.ui.primary.button {
+  background-color: #00B5D8; /* Cyan accent for primary actions */
+  color: white;
+}
+.ui.button:hover {
+  background-color: #009BB0; /* Slightly darker hover effect */
+}
+
+.ui.header {
+  color: #FFFFFF; /* White for headers */
+}
+
+.ui.segment {
+  background-color: #2E2E3E; /* Darker gray for card background */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ui.grid {
+  padding: 2em 0;
+}
+
+/* Text Colors */
+.text-primary {
+  color: #FFFFFF; /* White for main text */
+}
+.text-secondary {
+  color: #B0B0B0; /* Light gray for secondary text */
+}
+
+.ui.menu {
+  background-color: #2E2E3E; /* Darker gray for nav bar */
+  border: none;
+}
+
+.ui.menu .item {
+  color: #B0B0B0; /* Lighter text for nav links */
+}
+.ui.menu .item:hover {
+  color: #00B5D8; /* Cyan hover effect on nav links */
+}
+
+/* Dark mode input styling */
+.ui.form input {
+  background-color: #2E2E3E !important; /* Dark background for input fields */
+  color: #FFFFFF !important; /* White text for inputs */
+  border: 1px solid #555 !important; /* Subtle border to match the dark theme */
+}
+
+.ui.form input::placeholder {
+  color: #B0B0B0 !important; /* Light gray placeholder color */
+}
+
+.ui.form input:focus {
+  background-color: #3E3E4E !important; /* Slightly lighter background on focus */
+  border-color: #00B5D8 !important; /* Cyan border on focus */
+  color: #FFFFFF !important; /* Keep text white */
+}

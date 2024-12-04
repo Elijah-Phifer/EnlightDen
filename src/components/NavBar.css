@@ -1,0 +1,48 @@
+/* Ensure the logo is always white, regardless of interaction */
+.no-highlight-logo {
+    color: #FFFFFF !important; /* Always white */
+    text-decoration: none !important;
+  }
+  
+  /* Force the logo to stay white in all states */
+  .no-highlight-logo:link,
+  .no-highlight-logo:visited,
+  .no-highlight-logo:active,
+  .no-highlight-logo:hover,
+  .no-highlight-logo:focus {
+    color: #FFFFFF !important; /* Always white */
+    background-color: transparent !important;
+    text-decoration: none !important; /* No underline */
+    outline: none !important; /* No outline on focus */
+  }
+  
+  /* Nav tabs */
+  .nav-tabs {
+    display: flex;
+    overflow: hidden;
+    transition: max-width 0.5s ease;
+  }
+  
+  .show-tabs {
+    max-width: 300px; /* Adjust based on the number of tabs */
+  }
+  
+  .hide-tabs {
+    max-width: 0;
+  }
+  
+  .toggle-icon {
+    display: flex;
+    align-items: center;
+  }
+  
+  .toggle-icon:hover {
+    color: #00B5D8 !important;
+  }
+  
+  /* Subtle hover effects for menu items */
+  .ui.menu .item:hover {
+    color: #00B5D8 !important;
+    text-shadow: 0px 0px 10px rgba(0, 181, 216, 0.5);
+  }
+  

@@ -1,0 +1,24 @@
+/* Dark mode button styling */
+.ui.teal.button {
+    background-color: #3E3E4E !important; /* Dark background for buttons */
+    color: #FFFFFF !important; /* White text */
+    border: 1px solid #555 !important; /* Subtle border */
+  }
+  
+  .ui.teal.button:hover {
+    background-color: #00B5D8 !important; /* Teal background on hover */
+    color: #FFFFFF !important; /* Keep text white */
+    border-color: #00B5D8 !important; /* Teal border on hover */
+  }
+  
+  .ui.basic.teal.button {
+    background-color: transparent !important; /* Transparent for basic button */
+    color: #00B5D8 !important; /* Teal text color */
+    border: 1px solid #00B5D8 !important; /* Teal border for basic button */
+  }
+  
+  .ui.basic.teal.button:hover {
+    background-color: #00B5D8 !important; /* Teal background on hover */
+    color: #FFFFFF !important; /* White text on hover */
+  }
+  

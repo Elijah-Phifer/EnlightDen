@@ -273,7 +273,7 @@ const MindMapPage: React.FC = () => {
   }
 
   return (
-    <div style={{ backgroundColor: "#DDBEA8", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#504136", minHeight: "100vh" }}>
       <Container
         textAlign="center"
         style={{ paddingTop: "110px", paddingBottom: "20px" }}

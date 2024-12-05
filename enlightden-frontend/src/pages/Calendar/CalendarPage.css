@@ -80,10 +80,17 @@
     padding: 5px;
     border-radius: 4px;
   }
+
+  .rbc-event:hover {
+    background-color: #504136;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+  }
   
   /* Remove highlight for today */
   .rbc-today {
-    background-color: #504136!important;
+    background-color: #DDBEA8 !important;
     color: white !important;
   }
   

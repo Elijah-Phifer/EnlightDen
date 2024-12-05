@@ -53,9 +53,11 @@ const CalendarPage: React.FC = () => {
 
     <Container fluid className="calendar-container">
       <div style={{backgroundColor:'#504136'}}>
+      <div style={{textAlign:'center'}}>
       <Header as="h2" inverted>
         My Calendar
       </Header>
+      </div>
       <div className="responsive-calendar" style={{backgroundColor:'#504136'}}>
         <Calendar
           localizer={localizer}

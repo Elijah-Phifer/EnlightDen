@@ -239,7 +239,7 @@ const StudySessionPage: React.FC = () => {
       />
   
       <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-        <Button primary onClick={handleStart} style={{ backgroundColor:'#DDBEA8', margin: '10px', padding: '10px', fontSize: '16px' }}>
+        <Button primary onClick={handleStart} style={{ backgroundColor:'#927763', margin: '10px', padding: '10px', fontSize: '16px' }}>
           Start
         </Button>
         <Button secondary onClick={handleReset} style={{ margin: '10px', padding: '10px', fontSize: '16px', backgroundColor: 'red' }}>

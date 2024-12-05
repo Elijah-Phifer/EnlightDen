@@ -93,10 +93,10 @@ const CalendarPage: React.FC = () => {
    
 
     try {
-      const response = await apiClient.put(`/api/StudySession/update/${sessionToEdit}`);
+      const response = await apiClient.put(`/api/StudySession/update/${selectedEvent.resource?.id}`);
       if (response.status === 200) {
         const updatedSessions = sessions.map((session) =>
-          session.id === sessionToEdit.id ? response.data : session
+          session.id === sessionToEdit ? response.data : session
         );
         setSessions(updatedSessions);
         setModalOpen(false);
@@ -113,6 +113,7 @@ const CalendarPage: React.FC = () => {
     setSessionToEdit(event.resource?.id); // Set the session to edit
     setEditMode(true); // Enable editing mode
     setModalOpen(true); // Open the modal
+    handleUpdateSession();
   };
 
   // Close modal handler
@@ -164,9 +165,7 @@ const CalendarPage: React.FC = () => {
           <Button onClick={handleClose} style={{ backgroundColor: '#00B5D8', color: 'white' }}>
             Close
           </Button>
-          <Button color="orange" onClick={() => handleEdit(selectedEvent)}>
-            <Icon name="edit" /> Edit
-          </Button>
+         
           <Button color="red" onClick={handleDeleteSession}>
             <Icon name="trash" /> Delete
           </Button>

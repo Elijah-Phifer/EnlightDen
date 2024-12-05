@@ -115,12 +115,31 @@ const TestPage: React.FC = () => {
                   </List.Header>
                   {!submitted ? (
                     <Form>
-                      <Input
-                        placeholder="Type your answer here..."
-                        value={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse || ''}
-                        onChange={(e) => handleInputChange(question.id, e.target.value)}
-                        style={{ marginBottom: '1em', width: '100%' }}
-                      />
+  <div style={{ marginBottom: '1em' }}>
+    <label>
+      <input
+        type="radio"
+        name={`question-${question.id}`}
+        value="TRUE"
+        checked={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse === 'TRUE'}
+        onChange={() => handleInputChange(question.id, 'TRUE')}
+        style={{marginTop:"10px"}}
+      />
+      TRUE
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        type="radio"
+        name={`question-${question.id}`}
+        value="FALSE"
+        checked={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse === 'FALSE'}
+        onChange={() => handleInputChange(question.id, 'FALSE')}
+      />
+      FALSE
+    </label>
+  </div>
                     </Form>
                   ) : (
                     <div>

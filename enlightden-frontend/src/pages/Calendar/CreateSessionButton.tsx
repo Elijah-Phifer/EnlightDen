@@ -61,7 +61,7 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           <Form>
             <Form.Field style={{ color: '#FFFFFF' }}>
-              <label style={{ color: '#FFFFFF' }}>Bruh Name</label>
+              <label style={{ color: '#FFFFFF' }}>Session Name</label>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}

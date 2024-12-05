@@ -85,7 +85,7 @@ const UserClassesPage: React.FC = () => {
 
 
   return (
-    <div style={{ paddingTop: '70px', backgroundColor: '#1E1E2E', minHeight: '100vh', padding: '2em 0' }}>
+    <div style={{ paddingTop: '70px', backgroundColor: '#DDBEA8', minHeight: '100vh', padding: '2em 0' }}>
       <Container>
         <Header as="h1" style={{ color: '#FFFFFF', marginBottom: '1.5em' }} textAlign="center">
           Your Classes
@@ -114,7 +114,7 @@ const UserClassesPage: React.FC = () => {
               }
               onClick={() => handleClassClick(classItem.id)} // Navigate to the notes page on click
               style={{
-                backgroundColor: '#2E2E3E', // Darker background for the card
+                backgroundColor: '#504136', // Darker background for the card
                 color: '#FFFFFF', // White text for the header
                 borderRadius: '10px',
                 boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -130,7 +130,7 @@ const UserClassesPage: React.FC = () => {
             primary
             size="large"
             onClick={openCreateClassModal} // Open modal when button is clicked
-            style={{ backgroundColor: '#00B5D8', color: '#FFFFFF' }} // Cyan button
+            style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }} // Cyan button
           >
             Create New Class
           </Button>
@@ -140,12 +140,12 @@ const UserClassesPage: React.FC = () => {
         <Modal
           open={isModalOpen}
           onClose={closeCreateClassModal}
-          style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }} // Dark modal theme
+          style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }} // Dark modal theme
         >
-          <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Header style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
             Create a New Class
           </Modal.Header>
-          <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Content style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
             <Form>
               <Form.Field>
                 <label style={{ color: '#FFFFFF' }}>Class Name</label>
@@ -153,7 +153,7 @@ const UserClassesPage: React.FC = () => {
                   placeholder="Enter class name"
                   value={newClassName}
                   onChange={(e) => setNewClassName(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }} // Dark input fields
+                  style={{ backgroundColor: '#504136', color: '#FFFFFF' }} // Dark input fields
                 />
               </Form.Field>
               <Form.Field>
@@ -162,19 +162,19 @@ const UserClassesPage: React.FC = () => {
                   placeholder="Enter class description"
                   value={newClassDescription}
                   onChange={(e) => setNewClassDescription(e.target.value)}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }} // Dark input fields
+                  style={{ backgroundColor: '#504136', color: '#FFFFFF' }} // Dark input fields
                 />
               </Form.Field>
             </Form>
           </Modal.Content>
-          <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+          <Modal.Actions style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
             <Button onClick={closeCreateClassModal} color="red">
               Cancel
             </Button>
             <Button
               primary
               onClick={handleCreateClass}
-              style={{ backgroundColor: '#00B5D8', color: '#FFFFFF' }}
+              style={{ backgroundColor: '#F3DFC1', color: '#FFFFFF' }}
             >
               Create Class
             </Button>

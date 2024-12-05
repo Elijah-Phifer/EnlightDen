@@ -1,26 +1,26 @@
 /* Dark Mode Theme for EnlightDen */
 
 body {
-  background-color: #1E1E2E; /* Deep dark gray for background */
-  color: #FFFFFF; /* White text for readability */
+  background-color: #DDBEA8; /* Deep dark gray for background */
+  color: #5d5d5d; /* White text for readability */
   font-family: 'Lato', sans-serif;
 }
 
 /* General App Colors */
 .ui.primary.button {
-  background-color: #00B5D8; /* Cyan accent for primary actions */
-  color: white;
+  background-color: #F3DFC1; /* Cyan accent for primary actions */
+  color: #5d5d5d;
 }
 .ui.button:hover {
-  background-color: #009BB0; /* Slightly darker hover effect */
+  background-color: #6D9C7F; /* Slightly darker hover effect */
 }
 
 .ui.header {
-  color: #FFFFFF; /* White for headers */
+  color: #5d5d5d; /* White for headers */
 }
 
 .ui.segment {
-  background-color: #2E2E3E; /* Darker gray for card background */
+  background-color: #504136; /* Darker gray for card background */
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -38,7 +38,7 @@ body {
 }
 
 .ui.menu {
-  background-color: #2E2E3E; /* Darker gray for nav bar */
+  background-color: #504136; /* Darker gray for nav bar */
   border: none;
 }
 
@@ -46,22 +46,22 @@ body {
   color: #B0B0B0; /* Lighter text for nav links */
 }
 .ui.menu .item:hover {
-  color: #00B5D8; /* Cyan hover effect on nav links */
+  color: #F3DFC1; /* Cyan hover effect on nav links */
 }
 
 /* Dark mode input styling */
 .ui.form input {
-  background-color: #2E2E3E !important; /* Dark background for input fields */
-  color: #FFFFFF !important; /* White text for inputs */
+  background-color: #cdb9ab !important; /* Dark background for input fields */
+  color: #5d5d5d !important; /* White text for inputs */
   border: 1px solid #555 !important; /* Subtle border to match the dark theme */
 }
 
 .ui.form input::placeholder {
-  color: #B0B0B0 !important; /* Light gray placeholder color */
+  color: #5d5d5d !important; /* Light gray placeholder color */
 }
 
 .ui.form input:focus {
-  background-color: #3E3E4E !important; /* Slightly lighter background on focus */
-  border-color: #00B5D8 !important; /* Cyan border on focus */
-  color: #FFFFFF !important; /* Keep text white */
+  background-color: #F3DFC1 !important; /* Slightly lighter background on focus */
+  border-color: #F3DFC1 !important; /* Cyan border on focus */
+  color: #5d5d5d !important; /* Keep text white */
 }

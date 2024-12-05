@@ -21,7 +21,7 @@ const StudySessionPage: React.FC = () => {
   const audioRef1 = useRef<HTMLAudioElement | null>(new Audio(BrownNoise));
   const audioRef2 = useRef<HTMLAudioElement | null>(new Audio(lofiBeat));
   const [background,setBackground] = useState<string>('');
-  const [promptColor,setPromptColor]= useState<string>('#00B5D8')
+  const [promptColor,setPromptColor]= useState<string>('#F3DFC1')
   //const [toggleColor, setToggleColor]=useState<string>('')
   const [header2Color,setHeader2Color]=useState<string>('#B0B0B0')
   const [headerColor,setHeaderColor]=useState<string>('white')
@@ -123,7 +123,7 @@ const StudySessionPage: React.FC = () => {
   const toggleBrownNoise = () => {
     //Change colors for theme
     setBackground(isBrownNoiseEnabled ? '' : brownBackground);
-    setPromptColor(isBrownNoiseEnabled ? '#00B5D8' : '#bd8842');
+    setPromptColor(isBrownNoiseEnabled ? '#F3DFC1' : '#bd8842');
     setHeader2Color(isBrownNoiseEnabled ? '#B0B0B0' : 'black');
     setHeaderColor(isBrownNoiseEnabled ? 'white': 'black');
 
@@ -148,11 +148,11 @@ const StudySessionPage: React.FC = () => {
   const toggleLofi = () => {
     //Change colors for theme
     setBackground(isLofiEnabled ? '' : lofiBackground);
-    //setPromptColor(isBrownNoiseEnabled ? '#00B5D8' : '#bd8842');
+    //setPromptColor(isBrownNoiseEnabled ? '#F3DFC1' : '#bd8842');
     setHeader2Color(isLofiEnabled ? '#B0B0B0' : 'white');
     setHeaderColor(isLofiEnabled ? 'white': 'white');
     
-    setPromptColor(isLofiEnabled ? '#00B5D8': '#00B5D8');
+    setPromptColor(isLofiEnabled ? '#F3DFC1': '#F3DFC1');
     setIsLofiEnabled(prev => !prev);
     if(isBrownNoiseEnabled){
       setIsBrownNoiseEnabled(prev => !prev);
@@ -231,7 +231,7 @@ const StudySessionPage: React.FC = () => {
           fontSize: '50px',
           width: '300px',
           textAlign: 'center',
-          backgroundColor: '#2E2E3E',
+          backgroundColor: '#504136',
           color: '#FFFFFF',
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
           borderRadius: '10px',
@@ -239,7 +239,7 @@ const StudySessionPage: React.FC = () => {
       />
   
       <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-        <Button primary onClick={handleStart} style={{ margin: '10px', padding: '10px', fontSize: '16px' }}>
+        <Button onClick={handleStart} style={{ margin: '10px', padding: '10px', fontSize: '16px', color:"#504136" }}>
           Start
         </Button>
         <Button secondary onClick={handleReset} style={{ margin: '10px', padding: '10px', fontSize: '16px', backgroundColor: 'red' }}>
@@ -249,7 +249,7 @@ const StudySessionPage: React.FC = () => {
   
       <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', position: 'absolute', top: '100px', right: '20px', zIndex: 1000 }}>
         <div style={{ textAlign: 'center' }}>
-          <Message style={{ marginTop: '10px', padding: '10px', fontSize: '1em', width: '250px', backgroundColor: `${promptColor}`, color: '#2E2E3E', fontWeight: '800' }}>
+          <Message style={{ marginTop: '10px', padding: '10px', fontSize: '1em', width: '250px', backgroundColor: `${promptColor}`, color: '#504136', fontWeight: '800' }}>
             Try a different study environment!
           </Message>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -287,7 +287,7 @@ const StudySessionPage: React.FC = () => {
       </div>
   
       {message && (
-        <Message success style={{ fontSize: '60px', marginTop: '20px', backgroundColor: '#2E2E3E', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', borderRadius: '10px' }}>
+        <Message success style={{ fontSize: '60px', marginTop: '20px', backgroundColor: '#504136', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', borderRadius: '10px' }}>
           {message}
         </Message>
       )}

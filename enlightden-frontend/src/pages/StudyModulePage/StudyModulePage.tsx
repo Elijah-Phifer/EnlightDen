@@ -110,7 +110,7 @@ const StudyModulePage: React.FC = () => {
   }
 
   const contentStyle = {
-    backgroundColor: "#3A3A4B",
+    backgroundColor: "#6D9C7F",
     color: "rgba(255,255,255,.9)",
     padding: "1rem",
     borderRadius: "15px",
@@ -120,7 +120,7 @@ const StudyModulePage: React.FC = () => {
   };
 
   const accordionTitleStyle = {
-    backgroundColor: "#2E2E3E",
+    backgroundColor: "#504136",
     color: "white",
     borderBottom: "1px solid rgba(137, 207, 240, 0.1)",
   };
@@ -129,7 +129,7 @@ const StudyModulePage: React.FC = () => {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#1E1E2E",
+        backgroundColor: "#DDBEA8",
         color: "white",
         paddingTop: "8rem",
         fontFamily: "'Lato', sans-serif",

@@ -268,12 +268,12 @@ const NotesPage: React.FC = () => {
         open={isNoteModalOpen}
         onClose={closeNoteModal}
         closeIcon
-        style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}
+        style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
       >
-        <Modal.Header style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
+        <Modal.Header style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           {isUpdateMode ? 'Update Note' : 'Create a New Note'}
         </Modal.Header>
-        <Modal.Content style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
+        <Modal.Content style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           <Form>
             <Form.Field>
               <label style={{ color: '#FFFFFF' }}>Note Title</label>
@@ -297,7 +297,7 @@ const NotesPage: React.FC = () => {
             )}
           </Form>
         </Modal.Content>
-        <Modal.Actions style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
+        <Modal.Actions style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           <Button
             onClick={closeNoteModal}
             color="red"
@@ -323,7 +323,7 @@ const NotesPage: React.FC = () => {
             }}
             onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
               if (newNoteTitle && !loadingNoteCreation) {
-                e.currentTarget.style.backgroundColor = '#008BB2';
+                e.currentTarget.style.backgroundColor = '#6D9C7F';
               }
             }}
             onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {

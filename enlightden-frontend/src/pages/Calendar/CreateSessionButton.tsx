@@ -54,10 +54,10 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
       {/* Modal for creating new session */}
       <Modal open={modalOpen} 
       onClose={() => setModalOpen(false)}   
-      style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}
+      style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
       >
-        <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>Create New Study Session</Modal.Header>
-        <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+        <Modal.Header style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>Create New Study Session</Modal.Header>
+        <Modal.Content style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           <Form>
             <Form.Field style={{ color: '#FFFFFF' }}>
@@ -67,7 +67,7 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Session Name"
                 required
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
               />
             </Form.Field>
             <Form.Field style={{ color: '#FFFFFF' }}>
@@ -77,7 +77,7 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Session Description"
                 required
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                style={{ backgroundColor: '#DDBEA8', color: '#5d5d5d' }}
               />
             </Form.Field>
             <Form.Field style={{ color: '#FFFFFF' }}>
@@ -87,7 +87,7 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
                 onChange={(e) => setClassName(e.target.value)}
                 placeholder="Class Name"
                 required
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                style={{ backgroundColor: '#DDBEA8', color: '#5d5d5d' }}
               />
             </Form.Field>
             <Form.Field style={{ color: '#FFFFFF' }}>
@@ -97,7 +97,7 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
                 required
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
               />
             </Form.Field>
             <Form.Field style={{ color: '#FFFFFF' }}>
@@ -107,10 +107,10 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
                 required
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
               />
             </Form.Field>
-            <Button color="blue" onClick={handleCreateSession}>
+            <Button color="green" onClick={handleCreateSession} >
               Create Session
             </Button>
           </Form>

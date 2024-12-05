@@ -1,31 +1,31 @@
 /* StudyModulePage.css */
 
 .dark-theme-accordion.ui.styled.accordion {
-  background-color: #1e1e2e !important;
+  background-color: #DDBEA8 !important;
   border: 1px solid rgba(137, 207, 240, 0.1) !important;
 }
 
 .dark-theme-accordion .title {
   color: #ffffff !important;
-  background-color: #2e2e3e !important;
+  background-color: #504136 !important;
 }
 
 .dark-theme-accordion .content {
-  background-color: #3a3a4b !important;
+  background-color: #6D9C7F !important;
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .dark-theme-accordion .active.title {
-  background-color: #3a3a4b !important;
-  color: #89cff0 !important;
+  background-color: #6D9C7F !important;
+  color: #FFFFFF !important;
 }
 
 .dark-theme-accordion .title:hover {
-  background-color: #3a3a4b !important;
+  background-color: #6D9C7F !important;
 }
 
 .dark-theme-accordion .title .dropdown.icon {
-  color: #89cff0 !important;
+  color: #FFFFFF !important;
 }
 
 .content-container {
@@ -34,11 +34,11 @@
 }
 
 .ui.loader {
-  color: #89cff0 !important;
+  color: #FFFFFF !important;
 }
 
 .ui.message {
-  background-color: #2e2e3e !important;
+  background-color: #504136 !important;
   color: #ffffff !important;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5) !important;
 }
@@ -47,7 +47,7 @@
 .study-module-title.ui.header {
   font-size: 26px !important;
   margin-bottom: 2rem !important;
-  color: #89cff0 !important;
+  color: #FFFFFF !important;
   font-family: "Lato", sans-serif !important;
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
@@ -60,21 +60,21 @@
 /* Button styling */
 .ui.inverted.button,
 .ui.button.back-button {
-  background-color: #2e2e3e !important;
-  color: #89cff0 !important;
-  border: 0.5px solid #89cff0 !important;
+  background-color: #504136 !important;
+  color: #FFFFFF !important;
+  border: 0.5px solid #FFFFFF !important;
   transition: transform 0.2s, background-color 0.3s ease !important;
 }
 
 .ui.inverted.button:hover,
 .ui.button.back-button:hover {
-  background-color: #3a3a4b !important;
+  background-color: #6D9C7F !important;
   transform: scale(1.05);
-  color: #89cff0 !important;
+  color: #FFFFFF !important;
 }
 
 .ui.inverted.button:disabled {
-  background-color: #2e2e3e !important;
+  background-color: #504136 !important;
   color: rgba(137, 207, 240, 0.5) !important;
   border-color: rgba(137, 207, 240, 0.5) !important;
 }
@@ -90,9 +90,9 @@
 }
 
 .control-buttons .ui.button {
-  background-color: #2e2e3e !important;
-  color: #89cff0 !important;
-  border: 1px solid #89cff0 !important;
+  background-color: #504136 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FFFFFF !important;
   padding: 0.8rem 1.5rem !important;
   font-size: 0.95rem !important;
   font-weight: 500 !important;
@@ -103,7 +103,7 @@
 }
 
 .control-buttons .ui.button:hover:not(:disabled) {
-  background-color: #3a3a4b !important;
+  background-color: #6D9C7F !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(137, 207, 240, 0.2) !important;
 }
@@ -113,7 +113,7 @@
 }
 
 .control-buttons .ui.button:disabled {
-  background-color: #2e2e3e !important;
+  background-color: #504136 !important;
   color: rgba(137, 207, 240, 0.5) !important;
   border-color: rgba(137, 207, 240, 0.3) !important;
   cursor: not-allowed !important;

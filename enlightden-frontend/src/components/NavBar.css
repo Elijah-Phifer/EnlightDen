@@ -37,12 +37,12 @@
   }
   
   .toggle-icon:hover {
-    color: #00B5D8 !important;
+    color: #81B184 !important;
   }
   
   /* Subtle hover effects for menu items */
   .ui.menu .item:hover {
-    color: #00B5D8 !important;
+    color: #81B184 !important;
     text-shadow: 0px 0px 10px rgba(0, 181, 216, 0.5);
   }
   

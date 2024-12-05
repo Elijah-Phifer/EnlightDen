@@ -79,7 +79,7 @@ const MindMapPage: React.FC = () => {
               shape: "dot",
               size: 16,
               color: {
-                background: "#00B5D8",
+                background: "#F3DFC1",
                 border: "#FFFFFF",
               },
               font: {
@@ -87,7 +87,7 @@ const MindMapPage: React.FC = () => {
               },
             },
             edges: {
-              color: "#00B5D8",
+              color: "#F3DFC1",
               width: 2,
             },
             physics: {
@@ -273,7 +273,7 @@ const MindMapPage: React.FC = () => {
   }
 
   return (
-    <div style={{ backgroundColor: "#1E1E2E", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#DDBEA8", minHeight: "100vh" }}>
       <Container
         textAlign="center"
         style={{ paddingTop: "110px", paddingBottom: "20px" }}
@@ -287,7 +287,7 @@ const MindMapPage: React.FC = () => {
         id="mindmap"
         style={{
           height: "calc(100vh - 120px)",
-          backgroundColor: "#2E2E3E",
+          backgroundColor: "#504136",
           padding: "20px",
         }}
       ></div>
@@ -297,16 +297,16 @@ const MindMapPage: React.FC = () => {
         onClose={() => setModalOpen(false)}
         size="small"
         style={{
-          backgroundColor: "#2E2E3E",
+          backgroundColor: "#504136",
           color: "#FFFFFF",
           borderRadius: "10px",
         }}
       >
         <Modal.Header
           style={{
-            backgroundColor: "#1E1E2E",
+            backgroundColor: "#504136",
             color: "#FFFFFF",
-            borderBottom: "1px solid #00B5D8",
+            borderBottom: "1px solid #DDBEA8",
             borderRadius: "10px 10px 0 0",
           }}
         >
@@ -317,7 +317,7 @@ const MindMapPage: React.FC = () => {
 
         <Modal.Content
           style={{
-            backgroundColor: "#2E2E3E",
+            backgroundColor: "#504136",
             color: "#FFFFFF",
             padding: "20px",
           }}
@@ -331,9 +331,9 @@ const MindMapPage: React.FC = () => {
                   value={testName}
                   onChange={(e) => setTestName(e.target.value)}
                   style={{
-                    backgroundColor: "#1E1E2E",
+                    backgroundColor: "#DDBEA8",
                     color: "#FFFFFF",
-                    border: "1px solid #00B5D8",
+                    border: "1px solid #DDBEA8",
                     borderRadius: "5px",
                     padding: "0px",
                     outline: "none",
@@ -348,7 +348,7 @@ const MindMapPage: React.FC = () => {
 
         <Modal.Actions
           style={{
-            backgroundColor: "#1E1E2E",
+            backgroundColor: "#504136",
             padding: "20px",
             textAlign: "right",
             borderRadius: "0 0 10px 10px",
@@ -359,8 +359,8 @@ const MindMapPage: React.FC = () => {
               primary
               onClick={() => navigate(`/test/${testId}`)}
               style={{
-                backgroundColor: "#00B5D8",
-                color: "#FFFFFF",
+                backgroundColor: "#F3DFC1",
+                color: "#5d5d5d",
                 borderRadius: "5px",
                 padding: "10px 20px",
                 fontWeight: "bold",
@@ -377,8 +377,8 @@ const MindMapPage: React.FC = () => {
               onClick={() => generateStudyTool("test")}
               disabled={!testName}
               style={{
-                backgroundColor: testName ? "#00B5D8" : "#555555",
-                color: "#FFFFFF",
+                backgroundColor: testName ? "#F3DFC1" : "#555555",
+                color: "#5d5d5d",
                 borderRadius: "5px",
                 padding: "10px 20px",
                 fontWeight: "bold",
@@ -396,8 +396,8 @@ const MindMapPage: React.FC = () => {
               primary
               onClick={() => navigate(`/flashcards/${flashcardId}`)}
               style={{
-                backgroundColor: "#00B5D8",
-                color: "#FFFFFF",
+                backgroundColor: "#F3DFC1",
+                color: "#5d5d5d",
                 borderRadius: "5px",
                 padding: "10px 20px",
                 fontWeight: "bold",
@@ -413,8 +413,8 @@ const MindMapPage: React.FC = () => {
               onClick={() => generateStudyTool("flashcard")}
               disabled={!testName}
               style={{
-                backgroundColor: testName ? "#00B5D8" : "#555555",
-                color: "#FFFFFF",
+                backgroundColor: testName ? "#F3DFC1" : "#555555",
+                color: "#5d5d5d",
                 borderRadius: "5px",
                 padding: "10px 20px",
                 fontWeight: "bold",
@@ -431,8 +431,8 @@ const MindMapPage: React.FC = () => {
               primary
               onClick={() => navigate(`/study-module/${studyModuleId}`)}
               style={{
-                backgroundColor: "#00B5D8",
-                color: "#FFFFFF",
+                backgroundColor: "#F3DFC1",
+                color: "#5d5d5d",
                 borderRadius: "5px",
                 padding: "10px 20px",
                 fontWeight: "bold",
@@ -448,8 +448,8 @@ const MindMapPage: React.FC = () => {
               onClick={() => generateStudyTool("studyModule")}
               disabled={!testName}
               style={{
-                backgroundColor: testName ? "#00B5D8" : "#555555",
-                color: "#FFFFFF",
+                backgroundColor: testName ? "#F3DFC1" : "#555555",
+                color: "#5d5d5d",
                 borderRadius: "5px",
                 padding: "10px 20px",
                 fontWeight: "bold",
@@ -467,18 +467,18 @@ const MindMapPage: React.FC = () => {
         open={viewTestModalOpen}
         onClose={() => setViewTestModalOpen(false)}
         size="small"
-        style={{ backgroundColor: "#2E2E3E", color: "#FFFFFF" }}
+        style={{ backgroundColor: "#504136", color: "#FFFFFF" }}
       >
-        <Modal.Header style={{ backgroundColor: "#1E1E2E", color: "#FFFFFF" }}>
+        <Modal.Header style={{ backgroundColor: "#DDBEA8", color: "#FFFFFF" }}>
           View Study Tool for: {selectedTopic?.topic}
         </Modal.Header>
-        <Modal.Content style={{ backgroundColor: "#2E2E3E", color: "#FFFFFF" }}>
+        <Modal.Content style={{ backgroundColor: "#504136", color: "#FFFFFF" }}>
           <Button
             primary
             onClick={viewTestOrFlashcardOrStudyModule}
             style={{
-              backgroundColor: "#00B5D8",
-              color: "#FFFFFF",
+              backgroundColor: "#F3DFC1",
+              color: "#5d5d5d",
               padding: "10px 20px",
               borderRadius: "5px",
             }}

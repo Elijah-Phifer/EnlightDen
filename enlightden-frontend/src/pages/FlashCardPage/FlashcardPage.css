@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #1E1E2E;
+    background-color: #DDBEA8;
     color: #FFFFFF;
     font-family: 'Lato', sans-serif;
     padding: 20px;
@@ -15,14 +15,14 @@
   .flashcard-set-title {
     font-size: 36px;
     margin-bottom: 10px;
-    color: #89CFF0; /* Muted blue for title */
+    color: #5d5d5d; /* Muted blue for title */
   }
   
   /* Progress Indicator */
   .progress-indicator {
     margin-bottom: 20px;
     font-size: 18px;
-    color: #CCCCCC;
+    color: #5d5d5d;
   }
   
   /* Flashcard Container */
@@ -62,13 +62,13 @@
   }
   
   .flashcard .front {
-    background-color: #2E2E3E;
+    background-color: #504136;
     color: #FFFFFF;
   }
   
   .flashcard .back {
-    background-color: #3A3A4B;
-    color: #89CFF0;
+    background-color: #F3DFC1;
+    color: #5d5d5d;
     transform: rotateY(180deg);
   }
   
@@ -84,21 +84,21 @@
     background: none;
     border: none;
     font-size: 48px;
-    color: #89CFF0;
+    color: #FFFFFF;
     cursor: pointer;
     transition: transform 0.2s, color 0.3s ease;
   }
   
   /* Hover and Active Effects */
   .navigation-buttons button:hover {
-    color: #66B2D6;
+    color: #6D9C7F;
     transform: scale(1.2);
   }
   
   .loader {
     font-size: 24px;
     font-weight: bold;
-    color: #89CFF0;
+    color: #FFFFFF;
   }
   
   .no-flashcards {

@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
       inverted
       fixed="top"
       style={{
-        background: 'linear-gradient(90deg, #2E2E3E 0%, #1F1F2E 100%)',
+        background: 'linear-gradient(90deg, #504136 0%, #504136 100%)',//#25402F,
         height: '70px',
         border: 'none',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',

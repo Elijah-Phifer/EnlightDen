@@ -230,7 +230,7 @@ const NotesPage: React.FC = () => {
         color='blue'
         style={{
           marginBottom: '20px',
-          backgroundColor: '#00B5D8',
+          backgroundColor: '#F3DFC1',
           color: '#FFFFFF',
           transition: 'background-color 0.3s ease'
         }}
@@ -240,7 +240,7 @@ const NotesPage: React.FC = () => {
           (e.currentTarget.style.backgroundColor = '#008BB2')
         }
         onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
-          (e.currentTarget.style.backgroundColor = '#00B5D8')
+          (e.currentTarget.style.backgroundColor = '#F3DFC1')
         }
       /> {/* Fixes navbar overlap */}
       <ToastContainer />
@@ -268,12 +268,12 @@ const NotesPage: React.FC = () => {
         open={isNoteModalOpen}
         onClose={closeNoteModal}
         closeIcon
-        style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}
+        style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
       >
-        <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+        <Modal.Header style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           {isUpdateMode ? 'Update Note' : 'Create a New Note'}
         </Modal.Header>
-        <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+        <Modal.Content style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           <Form>
             <Form.Field>
               <label style={{ color: '#FFFFFF' }}>Note Title</label>
@@ -281,7 +281,7 @@ const NotesPage: React.FC = () => {
                 placeholder="Enter note title"
                 value={newNoteTitle}
                 onChange={(e) => setNewNoteTitle(e.target.value)}
-                style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
               />
             </Form.Field>
 
@@ -291,13 +291,13 @@ const NotesPage: React.FC = () => {
                 <Input
                   type="file"
                   onChange={handleFileChange}
-                  style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}
+                  style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
                 />
               </Form.Field>
             )}
           </Form>
         </Modal.Content>
-        <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+        <Modal.Actions style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           <Button
             onClick={closeNoteModal}
             color="red"
@@ -316,19 +316,19 @@ const NotesPage: React.FC = () => {
             disabled={!newNoteTitle || (isUpdateMode ? false : !selectedFile) || loadingNoteCreation}
             style={{
               backgroundColor:
-                newNoteTitle && !loadingNoteCreation ? '#00B5D8' : '#B0B0B0',
+                newNoteTitle && !loadingNoteCreation ? '#F3DFC1' : '#B0B0B0',
               color: '#FFFFFF',
               transition: 'background-color 0.3s ease',
               cursor: newNoteTitle && !loadingNoteCreation ? 'pointer' : 'not-allowed',
             }}
             onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
               if (newNoteTitle && !loadingNoteCreation) {
-                e.currentTarget.style.backgroundColor = '#008BB2';
+                e.currentTarget.style.backgroundColor = '#6D9C7F';
               }
             }}
             onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
               if (newNoteTitle && !loadingNoteCreation) {
-                e.currentTarget.style.backgroundColor = '#00B5D8';
+                e.currentTarget.style.backgroundColor = '#F3DFC1';
               }
             }}
           >
@@ -351,7 +351,7 @@ const NotesPage: React.FC = () => {
               key={note.id}
               className="note-segment" // Apply class for hover effect
               style={{
-                backgroundColor: '#2E2E3E',
+                backgroundColor: '#504136',
                 padding: '1.5em',
                 borderRadius: '10px',
                 boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
@@ -396,6 +396,7 @@ const NotesPage: React.FC = () => {
                         navigate(`/mindmap/${note.id}`);
                       }}
                       className="hover-scale"
+        
                     >
                       View Mind Map
                     </Button>
@@ -433,15 +434,15 @@ const NotesPage: React.FC = () => {
         open={isModalOpen}
         onClose={closeModal}
         closeIcon
-        style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }} // Dark theme modal for viewing notes
+        style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }} // Dark theme modal for viewing notes
       >
-        <Modal.Header style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+        <Modal.Header style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
           {selectedNote?.title}
         </Modal.Header>
-        <Modal.Content style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+        <Modal.Content style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
           <p>{selectedNote?.content}</p>
         </Modal.Content>
-        <Modal.Actions style={{ backgroundColor: '#1E1E2E', color: '#FFFFFF' }}>
+        <Modal.Actions style={{ backgroundColor: '#DDBEA8', color: '#FFFFFF' }}>
           <Button onClick={closeModal} color="red">
             Close
           </Button>

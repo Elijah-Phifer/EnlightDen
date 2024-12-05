@@ -93,10 +93,10 @@ const CalendarPage: React.FC = () => {
    
 
     try {
-      const response = await apiClient.put(`/api/StudySession/update/${sessionToEdit}`);
+      const response = await apiClient.put(`/api/StudySession/update/${selectedEvent.resource?.id}`);
       if (response.status === 200) {
         const updatedSessions = sessions.map((session) =>
-          session.id === sessionToEdit.id ? response.data : session
+          session.id === sessionToEdit ? response.data : session
         );
         setSessions(updatedSessions);
         setModalOpen(false);
@@ -113,6 +113,7 @@ const CalendarPage: React.FC = () => {
     setSessionToEdit(event.resource?.id); // Set the session to edit
     setEditMode(true); // Enable editing mode
     setModalOpen(true); // Open the modal
+    handleUpdateSession();
   };
 
   // Close modal handler
@@ -138,7 +139,7 @@ const CalendarPage: React.FC = () => {
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ minHeight: '80vh' }}
+          style={{ minHeight: '80vh', backgroundColor:"#504136" }}
           views={['month']}
           defaultView={view}
           onSelectEvent={handleSelectEvent}
@@ -150,23 +151,21 @@ const CalendarPage: React.FC = () => {
       </div>
 
       {/* Modal to display event details */}
-      <Modal open={modalOpen} onClose={handleClose} size="small" style={{ backgroundColor: '#2E2E3E', color: 'white' }}>
-        <Modal.Header style={{ backgroundColor: '#1E1E2E', color: 'white' }}>
+      <Modal style={{ backgroundColor: '#504136', color: '#504136' }} open={modalOpen} onClose={handleClose} size="small" >
+        <Modal.Header style={{ backgroundColor: '#504136', color: 'white' }}>
           {selectedEvent?.title}
         </Modal.Header>
-        <Modal.Content style={{ backgroundColor: '#2E2E3E', color: '#B0B0B0' }}>
+        <Modal.Content style={{ backgroundColor: '#504136', color: '#ffffff' }}>
           <p><strong>Description:</strong> {selectedEvent?.resource?.description}</p>
           <p><strong>Class Name:</strong> {selectedEvent?.resource?.className}</p>
           <p><strong>Start Time:</strong> {selectedEvent?.start.toLocaleString()}</p>
           <p><strong>End Time:</strong> {selectedEvent?.end.toLocaleString()}</p>
         </Modal.Content>
-        <Modal.Actions style={{ backgroundColor: '#1E1E2E' }}>
-          <Button onClick={handleClose} style={{ backgroundColor: '#00B5D8', color: 'white' }}>
+        <Modal.Actions style={{ backgroundColor: '#504136' }}>
+          <Button onClick={handleClose} style={{ backgroundColor: '#F3DFC1', color: '#5d5d5d' }}>
             Close
           </Button>
-          <Button color="orange" onClick={() => handleEdit(selectedEvent)}>
-            <Icon name="edit" /> Edit
-          </Button>
+         
           <Button color="red" onClick={handleDeleteSession}>
             <Icon name="trash" /> Delete
           </Button>

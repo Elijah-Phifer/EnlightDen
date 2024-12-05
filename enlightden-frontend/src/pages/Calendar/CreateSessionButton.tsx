@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, TextArea, Modal } from 'semantic-ui-react';
+import { Button, Form, Input, TextArea, Modal, Container } from 'semantic-ui-react';
 import apiClient from '../../apiClient'; // Assuming you have a configured API client
 
 const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({ addSession }) => {
@@ -46,69 +46,77 @@ const CreateSessionButton: React.FC<{ addSession: (session: any) => void }> = ({
   };
 
   return (
-    <>
-      <Button color="green" onClick={() => setModalOpen(true)}>
+    <Container>
+      <Button color="green" onClick={() => setModalOpen(true)} style={{marginLeft: -135}}>
         Create New Session
       </Button>
 
       {/* Modal for creating new session */}
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)} size="small">
-        <Modal.Header>Create New Study Session</Modal.Header>
-        <Modal.Content>
+      <Modal open={modalOpen} 
+      onClose={() => setModalOpen(false)}   
+      style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
+      >
+        <Modal.Header style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>Create New Study Session</Modal.Header>
+        <Modal.Content style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           <Form>
-            <Form.Field>
-              <label>Session Name</label>
+            <Form.Field style={{ color: '#FFFFFF' }}>
+              <label style={{ color: '#FFFFFF' }}>Session Name</label>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Session Name"
                 required
+                style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
               />
             </Form.Field>
-            <Form.Field>
-              <label>Description</label>
+            <Form.Field style={{ color: '#FFFFFF' }}>
+              <label style={{ color: '#FFFFFF' }}>Description</label>
               <TextArea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Session Description"
                 required
+                style={{ backgroundColor: '#DDBEA8', color: '#5d5d5d' }}
               />
             </Form.Field>
-            <Form.Field>
-              <label>Class Name</label>
+            <Form.Field style={{ color: '#FFFFFF' }}>
+              <label style={{ color: '#FFFFFF' }}>Class Name</label>
               <Input
                 value={className}
                 onChange={(e) => setClassName(e.target.value)}
                 placeholder="Class Name"
                 required
+                style={{ backgroundColor: '#DDBEA8', color: '#5d5d5d' }}
               />
             </Form.Field>
-            <Form.Field>
-              <label>Start Time</label>
+            <Form.Field style={{ color: '#FFFFFF' }}>
+              <label style={{ color: '#FFFFFF' }}>Start Time</label>
               <Input
                 type="datetime-local"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
                 required
+                style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
               />
             </Form.Field>
-            <Form.Field>
-              <label>End Time</label>
+            <Form.Field style={{ color: '#FFFFFF' }}>
+              <label style={{ color: '#FFFFFF' }}>End Time</label>
               <Input
                 type="datetime-local"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
                 required
+                style={{ backgroundColor: '#504136', color: '#FFFFFF' }}
               />
             </Form.Field>
-            <Button color="blue" onClick={handleCreateSession}>
+            <Button color="green" onClick={handleCreateSession} >
               Create Session
             </Button>
           </Form>
         </Modal.Content>
       </Modal>
-    </>
+    </Container>
   );
 };
 

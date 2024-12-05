@@ -94,7 +94,7 @@ const TestPage: React.FC = () => {
   }
 
   return (
-    <div style={{ backgroundColor: '#1E1E2E', minHeight: '100vh', color: '#FFFFFF' }}>
+    <div style={{ backgroundColor: '#DDBEA8', minHeight: '100vh', color: '#FFFFFF' }}>
       {/* Header Section */}
       <Container textAlign="center" style={{ paddingTop: '80px', paddingBottom: '20px' }}>
         <Header as="h1" style={{ color: '#FFFFFF' }}>
@@ -104,7 +104,7 @@ const TestPage: React.FC = () => {
 
       {/* Display questions */}
       <Container>
-        <Segment raised style={{ backgroundColor: '#2E2E3E', color: '#FFFFFF' }}>
+        <Segment raised style={{ backgroundColor: '#504136', color: '#FFFFFF' }}>
           <Header as="h3" style={{ color: '#FFFFFF' }}>Answer the following questions</Header>
           <List divided relaxed>
             {testData?.questions.map((question, index) => (
@@ -115,12 +115,31 @@ const TestPage: React.FC = () => {
                   </List.Header>
                   {!submitted ? (
                     <Form>
-                      <Input
-                        placeholder="Type your answer here..."
-                        value={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse || ''}
-                        onChange={(e) => handleInputChange(question.id, e.target.value)}
-                        style={{ marginBottom: '1em', width: '100%' }}
-                      />
+  <div style={{ marginBottom: '1em' }}>
+    <label>
+      <input
+        type="radio"
+        name={`question-${question.id}`}
+        value="TRUE"
+        checked={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse === 'TRUE'}
+        onChange={() => handleInputChange(question.id, 'TRUE')}
+        style={{marginTop:"10px"}}
+      />
+      TRUE
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        type="radio"
+        name={`question-${question.id}`}
+        value="FALSE"
+        checked={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse === 'FALSE'}
+        onChange={() => handleInputChange(question.id, 'FALSE')}
+      />
+      FALSE
+    </label>
+  </div>
                     </Form>
                   ) : (
                     <div>
@@ -128,7 +147,7 @@ const TestPage: React.FC = () => {
                         <Icon name={userAnswers.find((answer) => answer.questionId === question.id)?.userResponse.trim().toLowerCase() === question.answer.trim().toLowerCase() ? 'check' : 'close'} />
                         <strong>Your Answer:</strong> {userAnswers.find((answer) => answer.questionId === question.id)?.userResponse || 'No answer given'}
                       </p>
-                      <p style={{ color: '#00B5D8' }}>
+                      <p style={{ color: '#F3DFC1' }}>
                         <strong>Correct Answer:</strong> {question.answer}
                       </p>
                     </div>
@@ -142,7 +161,7 @@ const TestPage: React.FC = () => {
             <Button
               primary
               onClick={gradeTest}
-              style={{ backgroundColor: '#00B5D8', color: '#FFFFFF', marginTop: '20px' }}
+              style={{ backgroundColor: '#F3DFC1', color: '#5d5d5d', marginTop: '20px' }}
             >
               Submit Test
             </Button>
@@ -151,7 +170,7 @@ const TestPage: React.FC = () => {
           {submitted && (
             <>
               <Divider />
-              <Header as="h3" style={{ color: '#00B5D8' }}>
+              <Header as="h3" style={{ color: '#F3DFC1' }}>
                 You scored {score}/{testData?.questions.length}
               </Header>
               <Message
@@ -167,7 +186,7 @@ const TestPage: React.FC = () => {
               <Button
                 secondary
                 onClick={resetTest}
-                style={{ backgroundColor: '#FFFFFF', color: '#00B5D8', marginTop: '20px' }}
+                style={{ backgroundColor: '#F3DFC1', color: '#5d5d5d', marginTop: '20px' }}
               >
                 Retake Test
               </Button>
